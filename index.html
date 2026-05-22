@@ -10,7 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
-  <link rel = 'icon' type='image/png' href='assets/favicon.png'>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -182,17 +182,18 @@
       color: var(--accent-pink) !important;
     }
 
-    /* Custom Mobile Menu Hamburger Icon Design */
+    /* Custom Classic Hamburger Icon Design with transitions */
     .navbar-toggler {
       border: none !important;
-      padding: 0 !important;
-      width: 32px;
-      height: 24px;
+      padding: 5px !important;
+      width: 30px;
+      height: 25px;
       position: relative;
       background: transparent;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      z-index: 1100;
     }
 
     .navbar-toggler:focus {
@@ -210,19 +211,19 @@
       transform-origin: center;
     }
 
-    /* Animated Toggler States when expanded */
+    /* Animated Classic Toggler states when active */
     .navbar-toggler:not(.collapsed) .toggler-line:nth-child(1) {
-      transform: translateY(10px) rotate(45deg);
+      transform: translateY(9px) rotate(45deg);
       background-color: var(--accent-pink);
     }
 
     .navbar-toggler:not(.collapsed) .toggler-line:nth-child(2) {
       opacity: 0;
-      transform: translateX(-15px);
+      transform: translateX(-10px);
     }
 
     .navbar-toggler:not(.collapsed) .toggler-line:nth-child(3) {
-      transform: translateY(-11px) rotate(-45deg);
+      transform: translateY(-9px) rotate(-45deg);
       background-color: var(--accent-pink);
     }
 
@@ -303,14 +304,17 @@
       transform: translateY(-2px);
     }
 
-    /* Fullscreen Hero Loop Container */
+    /* Fullscreen Hero Loop Container - Optimized for mobile viewport heights */
     .hero-slider-container {
       width: 100%;
       height: 100vh;
+      height: 100dvh; /* Modern viewport sizing prevents jumping on address bar changes */
       position: relative;
       overflow: hidden;
+      background-color: var(--bg-light);
     }
 
+    /* Video element styled to stretch cleanly and fill container boundaries */
     .hero-bg-media {
       position: absolute;
       top: 0;
@@ -644,7 +648,6 @@
 
     .contact-info-grid {
       background-color: rgba(255, 255, 255, 0.95);
-      /* backdrop-filter: blur(10px); */
       border-radius: 20px;
       border: 1px solid var(--glass-border);
       padding: 40px;
@@ -708,6 +711,9 @@
         background: var(--bg-white) !important;
         padding: 15px 0;
         border-bottom: 1px solid var(--glass-border);
+      }
+      .navbar-brand {
+        font-size: 1.25rem;
       }
       .navbar-collapse {
         background: var(--bg-white);
@@ -803,16 +809,13 @@
     
     <!-- Hero Loop Section -->
     <section class="hero-slider-container">
-      <!-- Welcome (Fidelity looped background video) -->
-      <video class="hero-bg-media" autoplay muted loop playsinline style="border: none !important; outline: none !important; box-shadow: none !important; object-fit: cover;">
+      <!-- Welcome (Fidelity looped background video) with fail-safe poster and explicit width/height -->
+      <video class="hero-bg-media" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" style="border: none !important; outline: none !important; box-shadow: none !important; object-fit: cover; width: 100%; height: 100%;">
         <source src="assets/videos/entry.mp4" type="video/mp4">
         <!-- Inline fallback of high quality villa asset if source not reachable locally -->
         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" alt="Apex Luxury Villa">
       </video>
-      <!-- <div class="hero-slide-overlay"></div>
-      <div class="hero-content text-start">
-        <h1 class="hero-title"><span style="color: var(--text-dark);">APEX</span><br><span style="color:var(--primary-color);">CONSTRUCTIONS</span></h1>
-      </div> -->
+      <div class="hero-slide-overlay"></div>
     </section>
 
     <!-- About Section -->
@@ -1629,11 +1632,14 @@
       const homeView = document.getElementById('home-view');
       const happyHomesView = document.getElementById('happyhomes-view');
 
-      // Auto-collapse navigation menu on mobile after selection
+      // Robust Auto-collapse navigation menu on mobile after selection
       const navCollapse = document.getElementById('navbarNav');
-      if (navCollapse.classList.contains('show')) {
-        const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
-        if (bsCollapse) bsCollapse.hide();
+      if (navCollapse && navCollapse.classList.contains('show')) {
+        let bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+        if (!bsCollapse) {
+          bsCollapse = new bootstrap.Collapse(navCollapse, { toggle: false });
+        }
+        bsCollapse.hide();
       }
 
       if (viewName === 'happyhomes' || viewName === 'gallery') {
@@ -1649,6 +1655,7 @@
             if (targetAnchorId) {
               setTimeout(() => { scrollToElement(targetAnchorId); }, 200);
             }
+            AOS.refresh();
           }
         });
       } else {
@@ -1663,6 +1670,7 @@
             if (targetAnchorId) {
               setTimeout(() => { scrollToElement(targetAnchorId); }, 200);
             }
+            AOS.refresh();
           }
         });
       }
@@ -1700,6 +1708,14 @@
       // Open WhatsApp directly using standard official API
       window.open(`https://api.whatsapp.com/send?phone=919849140626&text=${encodedMessage}`, '_blank');
     }
+
+    // Mobile Autoplay Force Trigger - standard fallback for iOS Safari battery saver modes
+    document.addEventListener('touchstart', function() {
+      const video = document.querySelector('.hero-bg-media');
+      if (video && video.paused) {
+        video.play().catch(err => console.log("Low power / autoplay restrictions bypassed gracefully"));
+      }
+    }, { once: true });
 
     function handleVisitSubmit(event) {
       event.preventDefault();
