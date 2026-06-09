@@ -1,1908 +1,789 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apex Constructions & Infra Projects | Apex Happy Homes</title>
-  
-  <!-- CSS Deliverables & Libraries -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* Premium White, Blue, and Pink Root Variables */
-    :root {
-      --primary-color: #0052CC; /* Royal Trust Blue */
-      --primary-light: #E6F0FF;
-      --accent-pink: #FF1493; /* Deep Pink */
-      --accent-pink-hover: #FF69B4; /* Hot Pink */
-      --bg-white: #FFFFFF;
-      --bg-light: #FAFBFC;
-      --text-dark: #091E42; /* Premium Deep Navy/Slate */
-      --text-gray: #6B778C;
-      --soft-pink-bg: #FFF0F5; /* Lavender Blush */
-      --glass-bg: rgba(255, 255, 255, 0.92);
-      --glass-border: rgba(0, 82, 204, 0.15);
-      --shadow-premium: 0 10px 30px rgba(9, 30, 66, 0.08);
-      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
-    }
-
-    /* Reset & Typography */
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-white);
-      color: var(--text-dark);
-      overflow-x: hidden;
-      scroll-behavior: initial;
-    }
-
-    h1, h2, h3, h4, h5, h6, .display-font {
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.02em;
-      color: var(--text-dark);
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-light);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-pink);
-    }
-
-    /* Animated Blueprint Loader */
-    #video-loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: var(--bg-white);
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .loader-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    .loader-logo {
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      letter-spacing: 5px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .loader-logo span {
-      color: var(--accent-pink);
-    }
-
-    .gold-line {
-      width: 200px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
-      margin: 15px auto;
-    }
-
-    /* Global Glassmorphism Elements */
-    .glass-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(15px);
-      border-radius: 12px;
-      box-shadow: var(--shadow-premium);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .glass-card:hover {
-      border-color: var(--accent-pink);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(255, 20, 147, 0.15);
-    }
-
-    /* Premium Navigation & Toggler Design */
-    .navbar {
-      background: transparent;
-      transition: all 0.4s ease;
-      padding: 24px 0;
-      border-bottom: 1px solid transparent;
-      z-index: 1000;
-    }
-
-    .navbar.scrolled {
-      background: var(--glass-bg) !important;
-      backdrop-filter: blur(20px);
-      padding: 12px 0;
-      border-color: var(--glass-border);
-      box-shadow: var(--shadow-premium);
-    }
-
-    .navbar-brand {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color) !important;
-      letter-spacing: 2px;
-    }
-
-    .navbar-brand span {
-      color: var(--accent-pink);
-    }
-
-    .nav-link {
-      color: var(--text-dark) !important;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 0 10px;
-      position: relative;
-      transition: color 0.3s;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--accent-pink);
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover::after, .nav-link.active::after {
-      width: 100%;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: var(--accent-pink) !important;
-    }
-
-    /* Custom Classic Hamburger Icon Design with transitions */
-    .navbar-toggler {
-      border: none !important;
-      padding: 5px !important;
-      width: 30px;
-      height: 25px;
-      position: relative;
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 1100;
-    }
-
-    .navbar-toggler:focus {
-      box-shadow: none !important;
-      outline: none !important;
-    }
-
-    .toggler-line {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background-color: var(--primary-color);
-      border-radius: 4px;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      transform-origin: center;
-    }
-
-    /* Animated Classic Toggler states when active */
-    .navbar-toggler:not(.collapsed) .toggler-line:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
-      background-color: var(--accent-pink);
-    }
-
-    .navbar-toggler:not(.collapsed) .toggler-line:nth-child(2) {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
-
-    .navbar-toggler:not(.collapsed) .toggler-line:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
-      background-color: var(--accent-pink);
-    }
-
-    /* Premium Brand Buttons */
-    .btn-gold {
-      background: var(--accent-pink);
-      color: var(--bg-white);
-      border: 1px solid var(--accent-pink);
-      border-radius: 4px;
-      padding: 12px 30px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .btn-gold::before {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--primary-color);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: -1;
-    }
-
-    .btn-gold:hover::before {
-      top: 0;
-    }
-
-    .btn-gold:hover {
-      color: var(--bg-white);
-      border-color: var(--primary-color);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline-gold {
-      background: transparent;
-      color: var(--primary-color);
-      border: 1px solid var(--primary-color);
-      border-radius: 4px;
-      padding: 12px 30px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .btn-outline-gold::before {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--accent-pink);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: -1;
-    }
-
-    .btn-outline-gold:hover::before {
-      top: 0;
-    }
-
-    .btn-outline-gold:hover {
-      color: var(--bg-white);
-      border-color: var(--accent-pink);
-      transform: translateY(-2px);
-    }
-
-    /* Fullscreen Hero Loop Container - Optimized for mobile viewport heights */
-    .hero-slider-container {
-      width: 100%;
-      height: 100vh;
-      height: 100dvh; /* Modern viewport sizing prevents jumping on address bar changes */
-      position: relative;
-      overflow: hidden;
-      background-color: var(--bg-light);
-    }
-
-    /* Video element styled to stretch cleanly and fill container boundaries */
-    .hero-bg-media {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.85);
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-
-    .hero-slide-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.25);
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: absolute;
-      top: 50%;
-      left: 10%;
-      transform: translateY(-50%);
-      z-index: 2;
-      max-width: 800px;
-    }
-
-    .hero-title {
-      font-size: 5rem;
-      font-weight: 800;
-      line-height: 1.1;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    /* About Section Grid & Timeline */
-    .timeline-container {
-      position: relative;
-      border-left: 1px solid rgba(0, 82, 204, 0.15);
-      padding-left: 30px;
-      margin-top: 40px;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 40px;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -36px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--accent-pink);
-      border: 3px solid var(--bg-white);
-      transition: all 0.3s ease;
-    }
-
-    .timeline-item:hover::before {
-      background: var(--primary-color);
-      transform: scale(1.3);
-    }
-
-    .timeline-year {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 5px;
-    }
-
-    /* Highlight Project Frame */
-    .project-featured-frame {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--glass-border);
-    }
-
-    .project-badge {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      background: var(--primary-color);
-      color: var(--bg-white);
-      padding: 6px 15px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 1px;
-      border-radius: 3px;
-      z-index: 5;
-    }
-
-    .project-detail-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(0deg, rgba(255, 255, 255, 0.98) 40%, transparent 100%);
-      padding: 40px;
-      z-index: 3;
-    }
-
-    /* Blueprint Floorplan Interactive Tool */
-    .blueprint-pane {
-      background-color: var(--bg-light);
-      border: 2px dashed rgba(0, 82, 204, 0.2);
-      border-radius: 12px;
-      padding: 30px;
-      position: relative;
-    }
-
-    .blueprint-svg-container {
-      width: 100%;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .blueprint-grid-bg {
-      background-image: radial-gradient(rgba(0, 82, 204, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-
-    .blueprint-selector-btn {
-      width: 100%;
-      text-align: left;
-      padding: 15px;
-      background: var(--bg-white);
-      border: 1px solid var(--glass-border);
-      color: var(--text-dark);
-      margin-bottom: 10px;
-      border-radius: 6px;
-      transition: all 0.3s;
-    }
-
-    .blueprint-selector-btn:hover, .blueprint-selector-btn.active {
-      background: var(--primary-color);
-      color: var(--bg-white);
-      border-color: var(--primary-color);
-    }
-
-    /* Premium Form Controls */
-    .form-floating > .form-control {
-      background-color: var(--bg-white) !important;
-      border: 1px solid var(--glass-border) !important;
-      color: var(--text-dark) !important;
-    }
-
-    .form-floating > .form-control:focus {
-      border-color: var(--accent-pink) !important;
-      box-shadow: 0 0 10px rgba(255, 20, 147, 0.15) !important;
-    }
-
-    .form-floating > label {
-      color: var(--text-gray);
-    }
-
-    /* Map Layout fallback */
-    .map-placeholder {
-      width: 100%;
-      height: 450px;
-      background-color: var(--bg-light);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Image Lightbox Style */
-    .lightbox-modal {
-      display: none;
-      position: fixed;
-      z-index: 100000;
-      padding-top: 100px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(9, 30, 66, 0.95);
-    }
-
-    .lightbox-content {
-      margin: auto;
-      display: block;
-      width: 80%;
-      max-width: 1000px;
-      max-height: 70vh;
-      object-fit: contain;
-      border: 2px solid var(--primary-color);
-    }
-
-    /* Views transitions */
-    .view-section {
-      display: none;
-    }
-
-    .view-section.active {
-      display: block;
-    }
-
-    .hero-btn-container {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    /* Amenities Premium Image Cards styling */
-    .amenity-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      height: 250px;
-      border: 1px solid var(--glass-border);
-    }
-
-    .amenity-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-      filter: brightness(0.7);
-    }
-
-    .amenity-card:hover .amenity-img {
-      transform: scale(1.1);
-    }
-
-    .amenity-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px;
-      background: linear-gradient(360deg, rgba(0, 82, 204, 0.95) 0%, rgba(0, 82, 204, 0.4) 100%);
-      color: var(--bg-white);
-    }
-
-    .blueprint-thumb-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid var(--glass-border);
-      margin-bottom: 15px;
-    }
-
-    /* Elegant Editorial Typo Grid for About */
-    .legacy-card {
-      background: linear-gradient(135deg, var(--bg-light) 0%, var(--primary-light) 100%);
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      position: relative;
-      box-shadow: var(--shadow-premium);
-    }
-
-    /* "THE APEX DIFFERENCE" Classic Cards */
-    .apex-difference-card {
-      background-color: var(--bg-white);
-      border: 1px solid rgba(0, 82, 204, 0.08);
-      border-top: 4px solid var(--primary-color);
-      border-radius: 12px;
-      padding: 40px 30px;
-      box-shadow: var(--shadow-soft);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .apex-difference-card:nth-child(even) {
-      border-top-color: var(--accent-pink);
-    }
-
-    .apex-difference-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(9, 30, 66, 0.12);
-      border-color: rgba(255, 20, 147, 0.25);
-    }
-
-    .difference-icon-box {
-      width: 65px;
-      height: 65px;
-      border-radius: 10px;
-      background-color: var(--primary-light);
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 25px;
-      transition: all 0.3s;
-    }
-
-    .apex-difference-card:hover .difference-icon-box {
-      background-color: var(--accent-pink);
-      color: var(--bg-white);
-    }
-
-    .difference-card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 15px;
-    }
-
-    .difference-card-text {
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      line-height: 1.7;
-      margin: 0;
-    }
-
-    /* Premium Redesigned Contact Section with Parallax HD Villa Background overlay */
-    #contact {
-      position: relative;
-      background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-
-    .contact-info-grid {
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      padding: 40px;
-      box-shadow: var(--shadow-premium);
-    }
-
-    .contact-item-box {
-      display: flex;
-      margin-bottom: 30px;
-      align-items: flex-start;
-    }
-
-    .contact-icon-wrapper {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: var(--bg-white);
-      border: 1px solid rgba(0, 82, 204, 0.15);
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      margin-right: 20px;
-      flex-shrink: 0;
-    }
-
-    .whatsapp-form-wrapper {
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      box-shadow: var(--shadow-premium);
-      padding: 45px;
-      position: relative;
-    }
-
-    .whatsapp-form-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 10%;
-      right: 10%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-pink));
-      border-radius: 0 0 4px 4px;
-    }
-
-    /* Premium Styled Footer with high definition neighborhood colony overlay */
-    footer {
-      position: relative;
-      background-image: linear-gradient(rgba(86, 90, 94, 0.4), rgba(86, 91, 96, 0.4)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      border-top: 1px solid var(--glass-border);
-    }
-
-    /* Mobile Responsive Optimizations & Touch Target Sizes */
-    @media (max-width: 991px) {
-      .navbar {
-        background: var(--bg-white) !important;
-        padding: 15px 0;
-        border-bottom: 1px solid var(--glass-border);
-      }
-      .navbar-brand {
-        font-size: 1.25rem;
-      }
-      .navbar-collapse {
-        background: var(--bg-white);
-        padding: 20px;
-        border-radius: 12px;
-        margin-top: 15px;
-        box-shadow: var(--shadow-premium);
-        border: 1px solid var(--glass-border);
-      }
-      .nav-link {
-        margin: 10px 0;
-        padding: 8px 12px;
-      }
-      .hero-title {
-        font-size: 3.5rem;
-      }
-    }
-
-    @media (max-width: 575px) {
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      .legacy-card {
-        padding: 30px 20px;
-      }
-      .whatsapp-form-wrapper {
-        padding: 30px 20px;
-      }
-      .contact-info-grid {
-        padding: 30px 20px;
-      }
-    }
-  </style>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Apex Constructions & Infra | Luxury Real Estate</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+   <link rel="icon" type="image/png" href="assets/favion.png">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@300,0,0,24" rel="stylesheet" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0A192F',     
+                            gold: '#D4AF37',     
+                            dark: '#111827',
+                            gray: '#F3F4F6',
+                            text: '#374151',
+                            light: '#FFFFFF'
+                        }
+                    },
+                    boxShadow: {
+                        'corporate': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'corporate-hover': '0 30px 60px -20px rgba(0,0,0,0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #374151; background-color: #FAFAFA; }
+        body.menu-open { overflow: hidden; } /* Prevents scrolling when mobile menu is open */
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Sharp, luxury buttons */
+        .btn-gold {
+            background-color: #D4AF37;
+            color: #fff;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold:hover { background-color: #b5952f; }
+
+        /* Image hover zoom effect */
+        .img-zoom-container { overflow: hidden; }
+        .img-zoom { transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .img-zoom-container:hover .img-zoom { transform: scale(1.05); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Navigation transitions */
+        #navbar { transition: all 0.3s ease-in-out; }
+        .nav-link { position: relative; padding-bottom: 4px; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 1px;
+            bottom: 0; left: 0; background-color: #D4AF37; transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Home Projects Filter Button Underline Animation */
+        .home-filter-btn { position: relative; padding-bottom: 4px; transition: color 0.3s ease; }
+        .home-filter-btn::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 0; background-color: #D4AF37; transition: width 0.3s ease;
+        }
+        .home-filter-btn:hover::after, .home-filter-btn.active::after { width: 100%; }
+        .home-filter-btn.active { color: #0A192F; font-weight: 600; }
+
+        /* Hero Slider Transitions */
+        .hero-slide { transition: opacity 1.5s ease-in-out; }
+    </style>
 </head>
-<body>
+<body class="antialiased selection:bg-brand-gold selection:text-white">
 
-  <!-- Fullscreen Architectural Blueprint Loader -->
-  <div id="video-loader">
-    <!-- Blueprint line animated grid canvas -->
-    <canvas id="loader-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.15;"></canvas>
-    
-    <div class="loader-content">
-      <div class="loader-logo" id="loaderLogo">APEX <span>CONSTRUCTIONS</span></div>
-      <div class="gold-line"></div>
+   <header id="navbar" class="fixed top-0 w-full z-[100] bg-transparent border-b border-white/20 py-4 md:py-5">
+    <div class="max-w-7xl mx-auto px-4 md:px-12 flex justify-between items-center">
+        <a href="#Home" class="flex items-center gap-4 text-white transition-colors duration-300" id="nav-logo">
+            <img src="assets/favion.png" alt="Apex Constructions Logo" class="h-10 w-auto object-contain">
+            
+            <div class="flex flex-col leading-none">
+                <span class="font-serif text-xl md:text-2xl tracking-wide font-semibold">APEX</span>
+                <span class="text-[8px] md:text-[10px] tracking-[0.2em] uppercase mt-1">Constructions</span>
+            </div>
+        </a>
+        
+        <nav class="hidden md:flex items-center gap-10 text-sm font-medium tracking-wide text-white transition-colors duration-300" id="nav-links">
+            <a href="#About" class="nav-link hover:text-brand-gold">OVERVIEW</a>
+            <a href="apex-happy-homes.html" class="nav-link hover:text-brand-gold">APEX HAPPY HOMES</a>
+            <a href="#Amenities" class="nav-link hover:text-brand-gold">AMENITIES</a>
+            <a href="projects.html" class="nav-link hover:text-brand-gold">GALLERY</a>
+        </nav>
+
+        <div class="flex items-center gap-4 md:gap-6">
+            <button onclick="toggleChat()" class="text-white hover:text-brand-gold transition-colors material-symbols-outlined" id="nav-chat-icon">forum</button>
+            <button onclick="openEnquiryModal()" class="hidden md:block border border-white text-white px-6 py-2 text-sm tracking-wider hover:bg-white hover:text-brand-navy transition-colors duration-300" id="nav-enquire-btn">
+                ENQUIRE NOW
+            </button>
+            
+            <button id="hamburger-btn" class="md:hidden flex flex-col items-end gap-[5px] focus:outline-none p-1" onclick="toggleMobileMenu()">
+                <span class="hamburger-line w-7 h-[2px] bg-white transition-colors duration-300 block"></span>
+                <span class="hamburger-line w-5 h-[2px] bg-white transition-colors duration-300 block"></span>
+                <span class="hamburger-line w-3 h-[2px] bg-white transition-colors duration-300 block"></span>
+            </button>
+        </div>
     </div>
-  </div>
+</header>
 
-  <!-- Premium Header & Navbar -->
-  <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
-    <div class="container">
-      <a class="navbar-brand hoverable-element" href="#home" onclick="switchView('home')">
-        APEX <span>CONSTRUCTIONS</span>
-      </a>
-      <!-- New Custom Designed Mobile Hamburger Toggler -->
-      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="toggler-line"></span>
-        <span class="toggler-line"></span>
-        <span class="toggler-line"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
-          <li class="nav-item">
-            <a class="nav-link active hoverable-element" href="#home" onclick="switchView('home')">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link hoverable-element" href="#about" onclick="switchView('home', 'about')">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link hoverable-element" href="#projects" onclick="switchView('home', 'projects')">Projects</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link hoverable-element" href="#happyhomes" onclick="switchView('happyhomes')">Apex Happy Homes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link hoverable-element" href="#gallery" onclick="switchView('happyhomes', 'gallery')">Gallery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link hoverable-element" href="#contact" onclick="switchView('home', 'contact')">Contact</a>
-          </li>
-          <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-            <!-- Polished Premium Rounded Pink Download Button utilizing white, royal blue, and pink theme -->
-            <a class="btn py-2 px-4 hoverable-element" href="./assets/Apex%20_%20Final.pdf" download="Apex_Brochure.pdf" style="background-color: var(--accent-pink); border: 1px solid var(--accent-pink); color: var(--bg-white); font-weight: 550; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 20, 147, 0.25);">
-              <i class="bi bi-file-earmark-pdf-fill me-2"></i>Download Brochure
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-navy z-[150] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 p-2 text-white hover:text-brand-gold transition-colors">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        
+        <nav class="flex flex-col items-center gap-8 text-white">
+            <a href="#About" onclick="toggleMobileMenu()" class="font-serif text-3xl hover:text-brand-gold transition-colors">Overview</a>
+            <a href="apex-happy-homes.html" class="font-serif text-3xl hover:text-brand-gold transition-colors">Apex Happy Homes</a>
+            <a href="#Amenities" onclick="toggleMobileMenu()" class="font-serif text-3xl hover:text-brand-gold transition-colors">Amenities</a>
+            <a href="projects.html" class="font-serif text-3xl hover:text-brand-gold transition-colors">Gallery</a>
+            
+            <div class="w-12 h-px bg-brand-gold my-4"></div>
+            
+            <button onclick="toggleMobileMenu(); openEnquiryModal()" class="btn-gold px-10 py-4 text-xs font-semibold tracking-widest uppercase">
+                ENQUIRE NOW
+            </button>
+        </nav>
     </div>
-  </nav>
 
-  <!-- ==================== MAIN PORTAL VIEW ==================== -->
-  <div id="home-view" class="view-section active">
-    
-    <!-- Hero Loop Section -->
-    <section class="hero-slider-container">
-      <!-- Welcome (Fidelity looped background video) with fail-safe poster and explicit width/height -->
-      <video class="hero-bg-media" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" style="border: none !important; outline: none !important; box-shadow: none !important; object-fit: cover; width: 100%; height: 100%;">
-        <source src="assets/videos/entry.mp4" type="video/mp4">
-        <!-- Inline fallback of high quality villa asset if source not reachable locally -->
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" alt="Apex Luxury Villa">
-      </video>
-      <div class="hero-slide-overlay"></div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-5" style="background-color: var(--bg-white);">
-      <div class="container py-5">
-        <div class="row align-items-center g-5">
-          <!-- Left Column: Editorial legacy corporate panel replacing the MD's image -->
-          <div class="col-lg-5" data-aos="fade-right">
-            <div class="legacy-card p-5" style="position: relative; overflow: hidden;">
-              <div style="font-size: 6.5rem; font-family: 'Playfair Display', serif; font-weight: 900; line-height: 1; color: rgba(255, 20, 147, 0.08); position: absolute; top: 15px; right: 25px;">1997</div>
-              <span class="text-primary uppercase" style="letter-spacing: 2px; font-weight: 600; font-size: 0.85rem;">Legacy of Trust</span>
-              <h3 class="display-font mt-3 mb-4 text-dark" style="font-size: 2.2rem; line-height: 1.3;">ENGINEERING<br>WITH ABSOLUTE<br><span style="color: var(--accent-pink);">FIDELITY</span></h3>
-              <div class="d-flex align-items-center mb-4">
-                <div style="background-color: var(--accent-pink); width: 4px; height: 75px;" class="me-3"></div>
-                <p class="m-0 text-dark font-weight-medium" style="font-size: 0.95rem; line-height: 1.6;">
-                  Under the expert guidance of Mr. B. Thirupalu, Civil Engineer (B.Tech, 1995), Apex has successfully engineered over 2 Million Sq.Ft of residential and institutional landmarks.
+    <section id="Home" class="relative h-screen w-full bg-brand-dark overflow-hidden">
+        <div id="hero-slider" class="absolute inset-0 w-full h-full">
+            <div class="hero-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-100" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="hero-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="hero-slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 md:from-black/70 via-black/50 md:via-black/40 to-transparent"></div>
+        
+        <div class="relative z-10 h-full flex flex-col justify-center max-w-7xl mx-auto px-4 md:px-12 pt-16 md:pt-20">
+            <div class="max-w-2xl reveal-up">
+                <div class="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                    <div class="h-px w-8 md:w-12 bg-brand-gold"></div>
+                    <span class="text-brand-gold text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase">Established 1997</span>
+                </div>
+                <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl text-white leading-[1.15] md:leading-[1.1] mb-4 md:mb-6 pr-4 md:pr-0">
+                    Building Landmark Spaces in Anantapur
+                </h1>
+                <p class="text-gray-300 text-sm md:text-lg font-light mb-8 md:mb-10 max-w-xl leading-relaxed pr-4 md:pr-0">
+                    Delivering landmark residential communities across Andhra Pradesh. We don't just build homes; we engineer generational assets.
                 </p>
-              </div>
-              <div class="pt-2">
-                <span class="badge bg-white text-primary border px-3 py-2 shadow-sm rounded-pill" style="font-size: 0.85rem; font-weight: 600;"><i class="bi bi-patch-check-fill text-success"></i> Registered CREDAI Member</span>
-              </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="apex-happy-homes.html" class="btn-gold px-6 md:px-8 py-3.5 md:py-4 text-xs md:text-sm tracking-widest text-center flex items-center justify-center gap-2 shadow-lg">
+                        EXPLORE HAPPY HOMES <span class="material-symbols-outlined text-sm">east</span>
+                    </a>
+                </div>
             </div>
-          </div>
-          <!-- Right Column: Timeline & Content narrative -->
-          <div class="col-lg-7" data-aos="fade-left">
-            <span style="color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 600;">Corporate Narrative</span>
-            <h2 class="display-font text-dark mt-2 mb-4" style="font-size:2.8rem;">ELEGANT LANDMARKS, PROVEN TRUST</h2>
-            <p style="color: var(--text-gray); line-height: 1.8;">
-              Apex Constructions &amp; Infra Projects was established in Anantapur in 1997 with a vision to develop quality residential and institutional properties. Founded by Mr. B. Thirupalu, a civil engineering graduate (B.Tech, 1995), the firm has integrated rich engineering expertise with top-tier design sensibilities.
-            </p>
-            <p style="color: var(--text-gray); line-height: 1.8;">
-              Under his visionary guidance, Apex delivered over 2 million square feet of premium spaces across Andhra Pradesh. Building upon this legacy, Apex Infra Projects was founded in 2019 to handle mega infra developments with high-tech in-house engineering support.
-            </p>
-
-            <!-- Timeline -->
-            <div class="timeline-container">
-              <div class="timeline-item">
-                <div class="timeline-year">1995</div>
-                <div style="color:var(--text-dark); font-weight: 600;">The Foundation of Excellence</div>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Mr. B. Thirupalu graduates as a Civil Engineer, starting with premier construction enterprises to gather domain insights.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-year">1997</div>
-                <div style="color:var(--text-dark); font-weight: 600;">Apex Constructions Is Born</div>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Launched in Anantapur to build bespoke apartments, luxury standalone residences, and corporate structures.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-year">2019</div>
-                <div style="color:var(--text-dark); font-weight: 600;">Apex Infra Projects Expansion</div>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Incorporated to deliver large-scale gated communities, complex layouts, and premium institutional campuses.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Projects Showcase -->
-    <section id="projects" class="py-5" style="background-color: var(--bg-light);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Portfolio Highlight</span>
-          <h2 class="display-font text-dark mt-2">FEATURED MASTERPIECE</h2>
-          <p style="color: var(--text-gray); max-width: 600px; margin: auto;">Discover spaces meticulously structured for modern living standards and premium aesthetic excellence.</p>
         </div>
 
-        <!-- Highlight Apex Happy Homes Hero Banner Frame -->
-        <div class="row justify-content-center">
-          <div class="col-lg-11" data-aos="zoom-in">
-            <div class="project-featured-frame shadow-sm">
-              <span class="project-badge" style="background-color: var(--accent-pink);">Gated Community Masterpiece</span>
-              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" alt="Apex Happy Homes Gated Community Entrance" class="w-100 img-fluid" style="min-height: 450px; object-fit: cover;">
-              
-              <div class="project-detail-overlay text-start">
-                <div class="row align-items-end">
-                  <div class="col-md-8">
-                    <span style="color: var(--primary-color); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">A Project by Apex Constructions</span>
-                    <h2 class="display-font text-dark mt-2" style="font-size:2.5rem; letter-spacing: 1px;">APEX HAPPY HOMES</h2>
-                    <p style="color: var(--text-gray); max-width: 650px; font-size: 0.95rem;">
-                      Located beside Gurukula Patashala, Kurugunta, Anantapur, this flagship gated villa development delivers meticulously planned Duplex &amp; Simplex configurations with absolute luxury, concrete structural planning, and modern smart EV connections.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3 mt-3 text-dark" style="font-size: 0.85rem; opacity: 0.9;">
-                      <span><i class="bi bi-shield-check text-success"></i> AHUDA Approved Layout</span>
-                      <span><i class="bi bi-geo-alt-fill text-primary"></i> Beside Gurukula Patashala, Kurugunta</span>
-                      <span><i class="bi bi-building text-info"></i> Premium Concrete Build</span>
+        <div class="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur z-20 border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 md:px-12 py-4 md:py-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-y-4 md:gap-y-0 divide-x-0 md:divide-x divide-gray-200 text-center">
+                    <div class="px-2 md:px-8 flex-1">
+                        <div class="font-serif text-2xl md:text-3xl text-brand-navy mb-0.5 md:mb-1"><span class="counter" data-target="25">0</span>+</div>
+                        <div class="text-[9px] md:text-[10px] tracking-[0.1em] text-gray-500 uppercase">Years Legacy</div>
                     </div>
-                  </div>
-                  <div class="col-md-4 text-md-end mt-4 mt-md-0">
-                    <button class="btn-gold hoverable-element w-100 py-3" onclick="switchView('happyhomes')">Explore Interactive Project <i class="bi bi-arrow-right"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Choose Apex Section (Ultra Premium and Re-designed) -->
-    <section id="why-choose" class="py-5" style="background-color: var(--bg-white);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">The Apex Difference</span>
-          <h2 class="display-font text-dark mt-2" style="font-size: 2.8rem;">ARCHITECTURAL INTEGRITY</h2>
-          <p style="color: var(--text-gray); max-width: 600px; margin: auto;">Why discerning homeowners and developers trust Apex with building dreams since 1997.</p>
-        </div>
-
-        <div class="row g-4">
-          <!-- Card 1 -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="apex-difference-card h-100">
-              <div class="difference-icon-box">
-                <i class="bi bi-award-fill"></i>
-              </div>
-              <h4 class="difference-card-title display-font">25+ Years Experience</h4>
-              <p class="difference-card-text">Delivering consistent real estate engineering excellence and trusted timelines in Anantapur since 1997.</p>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="apex-difference-card h-100">
-              <div class="difference-icon-box">
-                <i class="bi bi-houses-fill"></i>
-              </div>
-              <h4 class="difference-card-title display-font">2M+ Sq.Ft Delivered</h4>
-              <p class="difference-card-text">A rich structural portfolio spanning massive residential properties and modern corporate campuses.</p>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="apex-difference-card h-100">
-              <div class="difference-icon-box">
-                <i class="bi bi-cpu-fill"></i>
-              </div>
-              <h4 class="difference-card-title display-font">In-House Engineering</h4>
-              <p class="difference-card-text">An elite in-house team of civil engineers, architects, and designers to ensure precise structural fidelity.</p>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="apex-difference-card h-100">
-              <div class="difference-icon-box">
-                <i class="bi bi-calendar-check-fill"></i>
-              </div>
-              <h4 class="difference-card-title display-font">On-Time Handover</h4>
-              <p class="difference-card-text">Adhering strictly to construction timelines while ensuring absolute quality across all structures.</p>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="apex-difference-card h-100">
-              <div class="difference-icon-box">
-                <i class="bi bi-lightning-charge-fill"></i>
-              </div>
-              <h4 class="difference-card-title display-font">EV Ready Infrastructure</h4>
-              <p class="difference-card-text">Modernizing with the times, including EV-charging capabilities and green smart layouts across projects.</p>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="apex-difference-card h-100">
-              <div class="difference-icon-box">
-                <i class="bi bi-shield-check-fill"></i>
-              </div>
-              <h4 class="difference-card-title display-font">CREDAI Member</h4>
-              <p class="difference-card-text">Adhering to high industry ethics, quality specifications, and absolute customer transparency.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Master Contact Section (Direct WhatsApp Connect - Premium Classic Redesign with Parallax Cover) -->
-    <section id="contact" class="py-5">
-      <div class="container py-5">
-        <div class="row g-5 align-items-stretch">
-          <!-- Left: Information Column -->
-          <div class="col-lg-5" data-aos="fade-right">
-            <div class="contact-info-grid h-100 d-flex flex-column justify-content-between">
-              <div>
-                <span class="text-primary uppercase" style="letter-spacing: 2px; font-weight: 600; font-size: 0.85rem;">Let's Connect</span>
-                <h2 class="display-font text-dark mt-2 mb-4" style="font-size: 2.8rem; line-height: 1.2;">DIRECT CONSULT</h2>
-                <p style="color: var(--text-gray); line-height: 1.8; margin-bottom: 40px;">
-                  Initialize a private walk-through consultation. Our team is available online to answer any questions regarding AHUDA approvals, plot sizing, and custom villa modifications.
-                </p>
-              </div>
-
-              <div>
-                <div class="contact-item-box">
-                  <div class="contact-icon-wrapper">
-                    <i class="bi bi-geo-alt-fill"></i>
-                  </div>
-                  <div>
-                    <h6 class="text-dark mb-1" style="font-weight: 600;">Office Address</h6>
-                    <p style="color: var(--text-gray); font-size: 0.85rem; margin: 0; line-height: 1.6;">
-                      #4-3-88-1, 2nd Floor, Lakshmi Sadanam,<br>
-                      Bellary Bypass Circle, Ananthapuramu - 515004.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="contact-item-box">
-                  <div class="contact-icon-wrapper">
-                    <i class="bi bi-telephone-fill"></i>
-                  </div>
-                  <div>
-                    <h6 class="text-dark mb-1" style="font-weight: 600;">Direct Lines</h6>
-                    <p style="color: var(--text-gray); font-size: 0.85rem; margin: 0; line-height: 1.6;">
-                      +91 9849140626 | +91 8453189999
-                    </p>
-                  </div>
-                </div>
-
-                <div class="contact-item-box mb-0">
-                  <div class="contact-icon-wrapper">
-                    <i class="bi bi-envelope-fill"></i>
-                  </div>
-                  <div>
-                    <h6 class="text-dark mb-1" style="font-weight: 600;">Email Correspondence</h6>
-                    <p style="color: var(--text-gray); font-size: 0.85rem; margin: 0; line-height: 1.6;">
-                      info@apexconstructionsinfra.com
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: WhatsApp Chat Form -->
-          <div class="col-lg-7" data-aos="fade-left">
-            <div class="whatsapp-form-wrapper h-100">
-              <h3 class="display-font text-dark mb-3" style="font-size: 1.8rem; font-weight: 700;">WhatsApp Portal</h3>
-              <p style="color: var(--text-gray); font-size: 0.9rem;" class="mb-4">Fill out your information below to initiate a chat with Mr. B. Thirupalu instantly on WhatsApp.</p>
-              
-              <form id="contactForm" onsubmit="handleWhatsAppSubmit(event)">
-                <div class="row g-4">
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="formName" placeholder="Your Name" required style="border-radius: 8px;">
-                      <label for="formName">Your Full Name</label>
+                    <div class="px-2 md:px-8 flex-1 border-l border-gray-200 md:border-l-0">
+                        <div class="font-serif text-2xl md:text-3xl text-brand-navy mb-0.5 md:mb-1"><span class="counter" data-target="2">0</span>M+</div>
+                        <div class="text-[9px] md:text-[10px] tracking-[0.1em] text-gray-500 uppercase">Sq.Ft Delivered</div>
                     </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="formPlace" placeholder="Location" required style="border-radius: 8px;">
-                      <label for="formPlace">Your Location / City</label>
+                    <div class="px-2 md:px-8 flex-1 border-t border-gray-200 md:border-t-0 md:border-l pt-4 md:pt-0">
+                        <div class="font-serif text-2xl md:text-3xl text-brand-navy mb-0.5 md:mb-1"><span class="counter" data-target="100">0</span>+</div>
+                        <div class="text-[9px] md:text-[10px] tracking-[0.1em] text-gray-500 uppercase">Projects Done</div>
                     </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <input type="tel" class="form-control" id="formPhone" placeholder="Mobile Number" required style="border-radius: 8px;">
-                      <label for="formPhone">Your Mobile Number</label>
+                    <div class="px-2 md:px-8 flex-1 border-t border-l border-gray-200 md:border-t-0 pt-4 md:pt-0">
+                        <div class="font-serif text-2xl md:text-3xl text-brand-navy mb-0.5 md:mb-1"><span class="counter" data-target="500">0</span>+</div>
+                        <div class="text-[9px] md:text-[10px] tracking-[0.1em] text-gray-500 uppercase">Happy Families</div>
                     </div>
-                  </div>
-                  <div class="col-12 mt-4">
-                    <button type="submit" class="btn py-3 px-5 hoverable-element w-100" style="background-color: #25D366; border: 1px solid #25D366; color: white; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 6px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);">
-                      <i class="bi bi-whatsapp me-2"></i>Initialize WhatsApp Consultation
-                    </button>
-                  </div>
                 </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
-  </div>
-
-  <!-- ==================== APEX HAPPY HOMES DETAILS VIEW ==================== -->
-  <div id="happyhomes-view" class="view-section">
-    
-    <!-- Hero Project Banner -->
-    <section class="position-relative d-flex align-items-center" style="min-height: 80vh; background-color: var(--bg-light);">
-      <!-- Representing simplex villas facing aesthetic visual background -->
-      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80" alt="Apex Happy Homes Exterior" class="position-absolute top-0 left-0 w-100 h-100" style="object-fit: cover; filter: brightness(0.8);">
-      <div class="hero-slide-overlay"></div>
-      <div class="container position-relative z-2 py-5 mt-5">
-        <div class="row">
-          <div class="col-lg-8" data-aos="fade-right">
-            <span class="badge mb-3 py-2 px-3" style="background-color: var(--primary-color); color: var(--bg-white); font-size:0.8rem; letter-spacing:1px; text-transform: uppercase;">Premium Project Profile</span>
-            <h1 class="display-font text-dark" style="font-size: 4rem;">APEX HAPPY HOMES</h1>
-            <p class="lead text-primary font-weight-bold">Elegant Gated Community Living Beside Gurukula Patashala, Kurugunta, Anantapuramu</p>
-            <p class="text-gray" style="max-width: 650px;">
-              An AHUDA approved masterpiece featuring elite simplex &amp; duplex luxury villas, secure compound boundaries, standard solar light configurations, overhead state tanks, and immediate EV station connectivity.
-            </p>
-            <div class="d-flex flex-wrap gap-3 mt-4">
-              <button class="btn-gold hoverable-element" onclick="scrollToElement('interactiveSiteMap')">View Layout Plan</button>
-              <button class="btn-outline-gold hoverable-element" onclick="scrollToElement('villasFloorplan')">Explore Floor Plans</button>
+    <section id="Featured-Projects" class="py-20 md:py-32 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <div class="text-center mb-10 md:mb-16 reveal-up">
+                <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-2 md:mb-3">Our Portfolio</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-brand-navy">Featured Developments</h2>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Master Layout Plan Section (Static Rich Image) -->
-    <section id="interactiveSiteMap" class="py-5" style="background-color: var(--bg-white);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Visual Layout Plan</span>
-          <h2 class="display-font text-dark mt-2">SITE LAYOUT PLAN</h2>
-          <p style="color: var(--text-gray); max-width: 600px; margin: auto;">Meticulously conceptualized and officially approved gated plot boundaries situated beside Gurukula Patashala, Kurugunta.</p>
-        </div>
-
-        <div class="row justify-content-center" data-aos="zoom-in">
-          <div class="col-lg-10">
-            <div class="project-featured-frame shadow-sm text-center">
-              <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=80" alt="Apex Happy Homes Master Plan" class="img-fluid rounded w-100" style="max-height: 600px; object-fit: cover;">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Luxury Interactive Villa Blueprint & Floorplan Selector with full imagery -->
-    <section id="villasFloorplan" class="py-5" style="background-color: var(--bg-light);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Blueprint Architecture</span>
-          <h2 class="display-font text-dark mt-2">INTERACTIVE VILLA FLOOR PLANS</h2>
-          <p style="color: var(--text-gray); max-width: 600px; margin: auto;">Switch facings instantly to view exact wall and spacing configurations derived from our engineering catalog.</p>
-        </div>
-
-        <div class="row g-5">
-          <!-- Left: Face Toggle Controls with Thumbnail previews -->
-          <div class="col-lg-4" data-aos="fade-right">
-            <h4 class="display-font text-dark mb-4">Select Facing Config</h4>
             
-            <button class="blueprint-selector-btn active" onclick="switchBlueprint('eastDuplex', this)">
-              <strong>East Facing Duplex</strong><br>
-              <span style="font-size:0.8rem; opacity:0.8;">2240 SFT | 4.00 Cents Plots</span>
-            </button>
-            
-            <button class="blueprint-selector-btn" onclick="switchBlueprint('westDuplex', this)">
-              <strong>West Facing Duplex</strong><br>
-              <span style="font-size:0.8rem; opacity:0.8;">2280 SFT | 4.00 Cents Plots</span>
-            </button>
-            
-            <button class="blueprint-selector-btn" onclick="switchBlueprint('eastSimplex', this)">
-              <strong>East Facing Simplex</strong><br>
-              <span style="font-size:0.8rem; opacity:0.8;">1200 SFT | 4.00 Cents Plots</span>
-            </button>
-
-            <button class="blueprint-selector-btn" onclick="switchBlueprint('westSimplex', this)">
-              <strong>West Facing Simplex</strong><br>
-              <span style="font-size:0.8rem; opacity:0.8;">1200 SFT | 4.00 Cents Plots</span>
-            </button>
-
-            <button class="blueprint-selector-btn" onclick="switchBlueprint('northSimplex', this)">
-              <strong>North Facing Simplex</strong><br>
-              <span style="font-size:0.8rem; opacity:0.8;">1200 SFT | 4.00 Cents Plots</span>
-            </button>
-          </div>
-
-          <!-- Right: CAD Blueprint SVG & Spec Sheet with active structural visualizer image -->
-          <div class="col-lg-8" data-aos="fade-left">
-            <div class="blueprint-pane blueprint-grid-bg">
-              <span class="position-absolute top-0 end-0 m-3 badge bg-white text-primary border border-primary">CAD BLUEPRINT</span>
-              <h4 id="blueprintTitle" class="display-font text-dark mb-3">East Facing Duplex - Layout Details</h4>
-              <p id="blueprintDescription" style="color:var(--text-gray); font-size:0.9rem;">Built-up area: 2240 SFT. Features standard dual levels, massive lobby, parking structure, and dedicated lift shaft.</p>
-              
-              <div class="row g-4 mt-2">
-                <div class="col-md-7">
-                  <!-- Structural render thumbnail corresponding to selection -->
-                  <img id="blueprintMainImg" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Villa Elevation Preview" class="blueprint-thumb-img shadow-sm">
-                  
-                  <div class="blueprint-svg-container" id="blueprintGraphicWrapper">
-                    <svg viewBox="0 0 400 300" class="w-100 h-100" id="floorPlanSvg">
-                      <!-- Dynamic Blueprint Grid lines, outer walls, rooms, dimensions -->
-                    </svg>
-                  </div>
+            <div class="w-full overflow-hidden mb-8 md:mb-10 reveal-up">
+                <div class="flex flex-nowrap md:flex-wrap overflow-x-auto hide-scrollbar justify-start md:justify-center gap-6 md:gap-10 border-b border-gray-200 pb-3 px-1 md:px-0">
+                    <button class="home-filter-btn active text-xs md:text-sm tracking-widest uppercase text-brand-navy font-semibold whitespace-nowrap" onclick="filterHomeProjects('all', this)">All Projects</button>
+                    <button class="home-filter-btn text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterHomeProjects('ongoing', this)">Ongoing</button>
+                    <button class="home-filter-btn text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterHomeProjects('completed', this)">Completed</button>
+                    <button class="home-filter-btn text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterHomeProjects('upcoming', this)">Upcoming</button>
                 </div>
-                <div class="col-md-5">
-                  <div class="glass-card p-3 h-100">
-                    <h5 class="text-dark display-font mb-3">Spatial Area Breakdown</h5>
-                    <ul id="spatialMetricsList" class="list-unstyled text-gray" style="font-size: 0.85rem; line-height: 2;">
-                      <!-- Dynamic list of specs -->
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10" id="home-projects-grid">
+                
+                <div class="home-project-card bg-white border border-gray-100 shadow-corporate hover:shadow-corporate-hover cursor-pointer group transition-all duration-500 rounded-md overflow-hidden reveal-up" data-category="ongoing" onclick="window.location.href='apex-happy-homes.html'">
+                    <div class="relative h-56 md:h-72 w-full bg-brand-gray overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apex Happy Homes" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-brand-navy text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold z-10 rounded-sm shadow-md">
+                            Ongoing
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-brand-gold text-[10px] md:text-xs font-semibold tracking-widest uppercase mb-1 md:mb-2">Luxury Villas</p>
+                        <h3 class="font-serif text-xl md:text-2xl text-brand-navy mb-2">Apex Happy Homes</h3>
+                        <p class="text-xs md:text-sm text-gray-500 font-light mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span> Kurugunta, Anantapur
+                        </p>
+                        <div class="flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-widest font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">
+                            Explore Project <span class="material-symbols-outlined text-sm md:text-base">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="home-no-results" class="hidden text-center py-12 md:py-16 reveal-up">
+                <span class="material-symbols-outlined text-4xl md:text-5xl text-gray-300 mb-3 block">domain_disabled</span>
+                <h3 class="font-serif text-xl md:text-2xl text-brand-navy mb-2">No Projects Found</h3>
+                <p class="text-xs md:text-sm text-gray-500 font-light">There are currently no projects listed in this category.</p>
+            </div>
+            
+            <div class="text-center mt-10 md:mt-12 reveal-up">
+                <a href="projects.html" class="inline-block border border-brand-navy text-brand-navy px-8 py-3.5 text-[10px] md:text-xs tracking-widest uppercase font-semibold hover:bg-brand-navy hover:text-white transition-colors">View Full Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="About" class="py-20 md:py-32 bg-brand-light relative">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="reveal-up order-2 lg:order-1">
+                    <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-3 md:mb-4">Our Visionary</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-brand-navy mb-6 md:mb-8 leading-tight">Driven by Engineering Excellence.</h2>
+                    <p class="text-brand-text font-light leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
+                        Founded by Mr. B. Thirupalu (Civil Engineer, B.Tech 1995), Apex Constructions was built on the core values of structural integrity, transparency, and timely delivery. 
+                    </p>
+                    <p class="text-brand-text font-light leading-relaxed mb-8 md:mb-10 text-sm md:text-base">
+                        For over two decades, we have redefined the landscape of Anantapur, ensuring that every project meets the highest standards of architectural precision and lifestyle elevation.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-brand-navy font-semibold text-[10px] md:text-sm tracking-widest uppercase hover:text-brand-gold transition-colors pb-1 border-b border-brand-navy hover:border-brand-gold">
+                        Read Our Story
+                    </a>
+                </div>
+                
+                <div class="relative reveal-up delay-200 order-1 lg:order-2">
+                    <div class="img-zoom-container rounded-md md:rounded-none overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Apex Architecture" class="img-zoom w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div class="absolute -bottom-6 -left-4 sm:-left-8 bg-brand-navy p-5 md:p-8 text-white max-w-[280px] sm:max-w-xs shadow-corporate">
+                        <p class="font-serif text-lg md:text-xl italic leading-snug">"Quality is never an accident; it is always the result of intelligent effort."</p>
+                        <p class="text-[9px] md:text-xs text-brand-gold tracking-widest mt-3 md:mt-4 uppercase">— Mr. B. Thirupalu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Amenities" class="py-20 md:py-24 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-navy mb-3 md:mb-4">Curated Lifestyle Amenities</h2>
+                <div class="h-px w-12 md:w-16 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-10 md:gap-y-12">
+                <div class="text-center group reveal-up">
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto border border-gray-300 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:border-brand-gold group-hover:bg-brand-navy transition-all duration-300">
+                        <span class="material-symbols-outlined text-brand-navy group-hover:text-brand-gold transition-colors text-xl md:text-2xl">park</span>
+                    </div>
+                    <h4 class="font-serif text-base md:text-lg text-brand-navy mb-1.5 md:mb-2">Landscaped Parks</h4>
+                    <p class="text-[10px] md:text-xs font-light text-brand-text px-2 md:px-4">Lush oxygen zones & walking trails.</p>
+                </div>
+                <div class="text-center group reveal-up" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto border border-gray-300 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:border-brand-gold group-hover:bg-brand-navy transition-all duration-300">
+                        <span class="material-symbols-outlined text-brand-navy group-hover:text-brand-gold transition-colors text-xl md:text-2xl">ev_station</span>
+                    </div>
+                    <h4 class="font-serif text-base md:text-lg text-brand-navy mb-1.5 md:mb-2">EV Infrastructure</h4>
+                    <p class="text-[10px] md:text-xs font-light text-brand-text px-2 md:px-4">Pre-installed charging stations.</p>
+                </div>
+                <div class="text-center group reveal-up" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto border border-gray-300 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:border-brand-gold group-hover:bg-brand-navy transition-all duration-300">
+                        <span class="material-symbols-outlined text-brand-navy group-hover:text-brand-gold transition-colors text-xl md:text-2xl">security</span>
+                    </div>
+                    <h4 class="font-serif text-base md:text-lg text-brand-navy mb-1.5 md:mb-2">24/7 Security</h4>
+                    <p class="text-[10px] md:text-xs font-light text-brand-text px-2 md:px-4">CCTV and smart gate control.</p>
+                </div>
+                <div class="text-center group reveal-up" style="transition-delay: 300ms;">
+                    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto border border-gray-300 rounded-full flex items-center justify-center mb-3 md:mb-4 group-hover:border-brand-gold group-hover:bg-brand-navy transition-all duration-300">
+                        <span class="material-symbols-outlined text-brand-navy group-hover:text-brand-gold transition-colors text-xl md:text-2xl">water_damage</span>
+                    </div>
+                    <h4 class="font-serif text-base md:text-lg text-brand-navy mb-1.5 md:mb-2">Water Management</h4>
+                    <p class="text-[10px] md:text-xs font-light text-brand-text px-2 md:px-4">24/7 supply & rain-harvesting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Location" class="py-20 md:py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+                <div class="reveal-up">
+                    <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-3 md:mb-4">Strategic Location</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-brand-navy mb-6 md:mb-8">Connected to Convenience.</h2>
+                    <p class="text-brand-text font-light mb-8 md:mb-10 text-sm md:text-base">Situated in the heart of Anantapur's growth corridor, ensuring you are never far from essential services while enjoying the peace of a gated community.</p>
+                    
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 md:w-10 md:h-10 border border-brand-gold flex items-center justify-center text-brand-gold rounded-full shrink-0">
+                                <span class="material-symbols-outlined text-sm md:text-base">local_hospital</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-brand-navy text-xs md:text-sm">Super Speciality Hospital</h4>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-light mt-0.5 md:mt-1">8 Mins Drive</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 md:w-10 md:h-10 border border-brand-gold flex items-center justify-center text-brand-gold rounded-full shrink-0">
+                                <span class="material-symbols-outlined text-sm md:text-base">train</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-brand-navy text-xs md:text-sm">Railway Station</h4>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-light mt-0.5 md:mt-1">12 Mins Drive</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 md:w-10 md:h-10 border border-brand-gold flex items-center justify-center text-brand-gold rounded-full shrink-0">
+                                <span class="material-symbols-outlined text-sm md:text-base">school</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-brand-navy text-xs md:text-sm">JNTU University</h4>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-light mt-0.5 md:mt-1">10 Mins Drive</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="h-[350px] sm:h-[400px] md:h-[500px] w-full reveal-up shadow-corporate bg-gray-100 rounded-md overflow-hidden mt-6 lg:mt-0">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123048.2435559868!2d77.51139459585641!3d14.67566144869811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb14a38bd4ba047%3A0xc3c5b597402dc0e0!2sAnantapur%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-navy pt-16 md:pt-20 pb-8 md:pb-10 text-white border-t-4 border-brand-gold">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
+                <div class="col-span-1 sm:col-span-2 lg:col-span-1">
+                    <a href="#Home" class="flex flex-col text-white mb-4 md:mb-6">
+                        <span class="font-serif text-2xl md:text-3xl tracking-wide font-semibold leading-none">APEX</span>
+                        <span class="text-[9px] md:text-xs tracking-[0.2em] uppercase mt-1 text-brand-gold">Constructions</span>
+                    </a>
+                    <p class="text-[10px] md:text-xs font-light text-gray-400 leading-relaxed pr-0 md:pr-4">
+                        Engineering with absolute fidelity since 1997. Creating landmark communities across Andhra Pradesh.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-serif tracking-wider mb-4 md:mb-6 text-base md:text-lg">Quick Links</h4>
+                    <ul class="space-y-2.5 md:space-y-3 text-[10px] md:text-xs font-light text-gray-400">
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Corporate Overview</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Our Legacy</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">NRI Services</a></li>
+                        <li><a href="assets/Apex _ Final.pdf" class="hover:text-white transition-colors flex items-center gap-2 border border-gray-600 w-fit px-3 py-1 mt-2 md:mt-3 hover:border-brand-gold rounded-sm">Download Brochure <span class="material-symbols-outlined text-[10px]">download</span></a></li>
                     </ul>
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Amenities Highlight (With full rich modern architecture background images) -->
-    <section class="py-5" style="background-color: var(--bg-white);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Premium Amenities</span>
-          <h2 class="display-font text-dark mt-2">EVERYTHING YOU DESIGNED FOR</h2>
-        </div>
-
-        <div class="row g-4">
-          <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="amenity-card">
-              <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=80" alt="Compound Wall" class="amenity-img">
-              <div class="amenity-content">
-                <h5 class="mb-1 text-white"><i class="bi bi-shield-lock me-2"></i>Master Wall</h5>
-                <p class="mb-0" style="font-size:0.75rem;">Fully fenced secure gated boundaries with check-in gates.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="amenity-card">
-              <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80" alt="EV Station" class="amenity-img">
-              <div class="amenity-content">
-                <h5 class="mb-1 text-white"><i class="bi bi-ev-station me-2"></i>EV Charging</h5>
-                <p class="mb-0" style="font-size:0.75rem;">Dedicated charging capabilities set up for your smart vehicles.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="amenity-card">
-              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" alt="Overhead Tank" class="amenity-img">
-              <div class="amenity-content">
-                <h5 class="mb-1 text-white"><i class="bi bi-droplet me-2"></i>Water Connection</h5>
-                <p class="mb-0" style="font-size:0.75rem;">Individual tap connection from the overhead water supply tank.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="amenity-card">
-              <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=400&q=80" alt="Avenue Plantation" class="amenity-img">
-              <div class="amenity-content">
-                <h5 class="mb-1 text-white"><i class="bi bi-tree me-2"></i>Avenue Plantation</h5>
-                <p class="mb-0" style="font-size:0.75rem;">Beautiful landscape layout featuring premium decorative plantations.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Project Specifications Accordion (With structural context split visual image) -->
-    <section class="py-5" style="background-color: var(--bg-light);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Engineering Guidelines</span>
-          <h2 class="display-font text-dark mt-2">TECHNICAL BUILDING SPECIFICATIONS</h2>
-        </div>
-
-        <div class="row g-5 align-items-center">
-          <div class="col-lg-5" data-aos="fade-right">
-            <img src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80" alt="Construction Quality Spec Detail" class="img-fluid rounded shadow-sm" style="border: 1px solid var(--glass-border);">
-            <div class="glass-card p-3 mt-4">
-              <h6 class="text-primary font-weight-bold display-font"><i class="bi bi-bookmark-star-fill me-2"></i>Approved Standards</h6>
-              <p class="m-0 text-gray" style="font-size: 0.85rem;">Every foundation and structural column is audited by certified external engineers to match national seismic structural codes.</p>
-            </div>
-          </div>
-          
-          <div class="col-lg-7" data-aos="fade-left">
-            <div class="accordion accordion-flush" id="specificationsAccordion" style="border: 1px solid var(--glass-border); border-radius:12px; overflow:hidden;">
-              
-              <!-- Spec Item 1 -->
-              <div class="accordion-item bg-white border-bottom">
-                <h2 class="accordion-header">
-                  <button class="accordion-button bg-white text-dark collapsed display-font" type="button" data-bs-toggle="collapse" data-bs-target="#specCollapse1">
-                    1. Foundation &amp; Super Structure
-                  </button>
-                </h2>
-                <div id="specCollapse1" class="accordion-collapse collapse show" data-bs-parent="#specificationsAccordion">
-                  <div class="accordion-body text-gray" style="font-size:0.9rem;">
-                    Foundations as per structural soil report. Super Structure features premium R.C.C framed layouts and durable brick masonry. External walls (9" thick) and Internal walls (4½" thick) are structured using high-grade AAC Blocks with modern structural adhesive.
-                  </div>
+                <div>
+                    <h4 class="font-serif tracking-wider mb-4 md:mb-6 text-base md:text-lg">Projects</h4>
+                    <ul class="space-y-2.5 md:space-y-3 text-[10px] md:text-xs font-light text-gray-400">
+                        <li><a href="apex-happy-homes.html" class="hover:text-brand-gold transition-colors">Apex Happy Homes</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apex Residency</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition-colors">Apex Avenue</a></li>
+                    </ul>
                 </div>
-              </div>
-
-              <!-- Spec Item 2 -->
-              <div class="accordion-item bg-white border-bottom">
-                <h2 class="accordion-header">
-                  <button class="accordion-button bg-white text-dark collapsed display-font" type="button" data-bs-toggle="collapse" data-bs-target="#specCollapse2">
-                    2. Doors &amp; Windows
-                  </button>
-                </h2>
-                <div id="specCollapse2" class="accordion-collapse collapse" data-bs-parent="#specificationsAccordion">
-                  <div class="accordion-body text-gray" style="font-size:0.9rem;">
-                    Main Door is framed with luxurious medium Teak wood and exquisite teak wood paneled shutters. All internal doors feature medium teak wood framing with high-resistance Laminated Flush shutters. WPVC water-resistant configurations for toilet frames. UPVC sliding windows are armed with strong M.S safety grills.
-                  </div>
+                <div>
+                    <h4 class="font-serif tracking-wider mb-4 md:mb-6 text-base md:text-lg">Contact Us</h4>
+                    <ul class="space-y-2.5 md:space-y-3 text-[10px] md:text-xs font-light text-gray-400">
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-sm text-brand-gold shrink-0">location_on</span>
+                            <span>Lakshmi Sadanam, Bellary Bypass Circle, Anantapur, AP</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm text-brand-gold shrink-0">call</span>
+                            <span>+91 9849140626 <br> +91 8453189999</span>
+                        </li>
+                        <li class="flex items-center gap-3 mt-4 md:mt-5">
+                            <a href="#" class="w-7 h-7 md:w-8 md:h-8 rounded-full border border-gray-600 flex items-center justify-center hover:bg-brand-gold hover:border-brand-gold transition-colors text-xs md:text-sm">in</a>
+                            <a href="#" class="w-7 h-7 md:w-8 md:h-8 rounded-full border border-gray-600 flex items-center justify-center hover:bg-brand-gold hover:border-brand-gold transition-colors text-xs md:text-sm">fb</a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-
-              <!-- Spec Item 3 -->
-              <div class="accordion-item bg-white border-bottom">
-                <h2 class="accordion-header">
-                  <button class="accordion-button bg-white text-dark collapsed display-font" type="button" data-bs-toggle="collapse" data-bs-target="#specCollapse3">
-                    3. Flooring &amp; Painting
-                  </button>
-                </h2>
-                <div id="specCollapse3" class="accordion-collapse collapse" data-bs-parent="#specificationsAccordion">
-                  <div class="accordion-body text-gray" style="font-size:0.9rem;">
-                    Premium vitrified tiles with 3" matching skirting in all main rooms. Corridors feature matte-finish non-skid vitrified tiles, staircase finished with solid rich granite, and private car parking built using heavy duty non-skid flooring. Painting features 2 coats of Premium Asian Tractor Emulsion over dual coats wall putty internally.
-                  </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] md:text-[10px] text-gray-500 tracking-wider uppercase font-light">
+                <p>© 2026 Apex Constructions & Infra Projects. All Rights Reserved.</p>
+                <div class="flex gap-3 md:gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="#" class="hover:text-white transition-colors">RERA</a>
                 </div>
-              </div>
+            </div>
+        </div>
+    </footer>
 
-              <!-- Spec Item 4 -->
-              <div class="accordion-item bg-white">
-                <h2 class="accordion-header">
-                  <button class="accordion-button bg-white text-dark collapsed display-font" type="button" data-bs-toggle="collapse" data-bs-target="#specCollapse4">
-                    4. Electrical, Plumbing &amp; Sanitary
-                  </button>
-                </h2>
-                <div id="specCollapse4" class="accordion-collapse collapse" data-bs-parent="#specificationsAccordion">
-                  <div class="accordion-body text-gray" style="font-size:0.9rem;">
-                    Standard concealed copper wiring and modern switches matching Finolex / Havells standards. AC power outputs in bedrooms. Plumbing utilizes high-durability Astral/Finolex pipes. Luxury bathroom taps and water closets are sourced from premium Jaquar/Cera or equivalent lines.
-                  </div>
+    <div id="enquiry-modal" class="fixed inset-0 z-[1000] hidden bg-brand-navy/60 backdrop-blur-sm items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300 relative" id="enquiry-modal-content">
+            
+            <button onclick="closeEnquiryModal()" class="absolute top-4 md:top-5 right-4 md:right-5 text-gray-400 hover:text-brand-navy transition-colors bg-gray-50 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center z-10">
+                <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+            
+            <div class="p-6 md:p-10 pb-4 md:pb-6 flex flex-col items-center text-center border-b border-gray-50">
+                <h3 class="text-brand-navy font-serif text-2xl md:text-3xl mb-1 md:mb-2">Enquire Now</h3>
+                <p class="text-[10px] md:text-xs text-gray-500 font-light">Leave your details and our team will get back to you shortly.</p>
+            </div>
+            
+            <div class="p-6 md:p-10 pt-4 md:pt-6 flex flex-col gap-4 md:gap-5 bg-[#FAFAFA]">
+                <div>
+                    <label class="block text-[9px] md:text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2 ml-1">Name *</label>
+                    <input type="text" id="eq-name" class="w-full bg-white border border-gray-200 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none transition-colors shadow-sm" placeholder="Your full name">
                 </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Project Gallery & Lightbox -->
-    <section id="gallery" class="py-5" style="background-color: var(--bg-white);">
-      <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <span style="color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Image Showroom</span>
-          <h2 class="display-font text-dark mt-2">PROJECT GALLERY &amp; RENDER VISUALS</h2>
-        </div>
-
-        <div class="row g-4">
-          <!-- Gallery Card 1 -->
-          <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="position-relative overflow-hidden rounded shadow-sm hoverable-element" style="border:1px solid var(--glass-border); cursor:pointer;" onclick="openLightbox('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')">
-              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80" alt="Apex Duplex Villa Render" class="w-100 img-fluid transition-all" style="height:250px; object-fit:cover;">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(360deg, rgba(0,0,0,0.8), transparent);">
-                <span class="text-white d-block" style="font-size:0.9rem;">Duplex Villa Front View</span>
-              </div>
-            </div>
-          </div>
-          <!-- Gallery Card 2 -->
-          <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="position-relative overflow-hidden rounded shadow-sm hoverable-element" style="border:1px solid var(--glass-border); cursor:pointer;" onclick="openLightbox('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80')">
-              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80" alt="Apex Entrance Arch" class="w-100 img-fluid transition-all" style="height:250px; object-fit:cover;">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(360deg, rgba(0,0,0,0.8), transparent);">
-                <span class="text-white d-block" style="font-size:0.9rem;">Modern Entrance Arch Architecture</span>
-              </div>
-            </div>
-          </div>
-          <!-- Gallery Card 3 -->
-          <div class="col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="position-relative overflow-hidden rounded shadow-sm hoverable-element" style="border:1px solid var(--glass-border); cursor:pointer;" onclick="openLightbox('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80')">
-              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80" alt="Apex Happy Homes Aerial View" class="w-100 img-fluid transition-all" style="height:250px; object-fit:cover;">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(360deg, rgba(0,0,0,0.8), transparent);">
-                <span class="text-white d-block" style="font-size:0.9rem;">Aerial Community Layout Render</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Location Map & Local Attractions Section -->
-    <section class="py-5" style="background-color: var(--bg-light);">
-      <div class="container py-5">
-        <div class="row g-5 align-items-center">
-          <div class="col-lg-6" data-aos="fade-right">
-            <span style="color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Elite Connectivity</span>
-            <h2 class="display-font text-dark mt-2 mb-4" style="font-size:2.5rem;">APEX HAPPY HOMES MAP LOCATION</h2>
-            <p style="color: var(--text-gray); line-height: 1.7;">
-              Ideally situated beside Gurukula Patashala, Kurugunta, along the major Kalyandurg road connectivity. Immediate vicinity includes prestigious English-medium campuses, shopping centers, and crucial medical care options.
-            </p>
-            <div class="glass-card p-3 mb-3">
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-geo-alt text-primary fs-4 me-3"></i>
-                <h6 class="mb-0 text-dark">Beside Gurukula Patashala</h6>
-              </div>
-              <p class="m-0 text-gray" style="font-size:0.85rem;">Just 10 minutes drive from Anantapur central clock tower circle.</p>
-            </div>
-            <div class="glass-card p-3">
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-shield-check text-primary fs-4 me-3"></i>
-                <h6 class="mb-0 text-dark">AHUDA Approved &amp; CREDAI Compliant</h6>
-              </div>
-              <p class="m-0 text-gray" style="font-size:0.85rem;">Title and land layouts verified for worry-free long-term luxury investments.</p>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-left">
-            <!-- Simulated Blue & Pink Theme Map with highlighted landmark nodes -->
-            <div class="map-placeholder shadow-sm">
-              <div style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #FFF0F5 0%, #FAFBFC 100%);">
-                <!-- Custom Map diagram -->
-                <div class="text-center p-4">
-                  <div class="text-primary fs-1 mb-3"><i class="bi bi-map"></i></div>
-                  <h5 class="text-dark mb-2 font-weight-bold">Kurugunta - Kalyandurg Road Map</h5>
-                  <p class="text-gray mb-3" style="font-size:0.8rem; max-width:350px; margin:auto;">Beside Gurukula Patashala, Kurugunta, Anantapuramu</p>
-                  
-                  <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
-                    <span class="badge bg-white border border-primary text-primary" style="font-size:0.75rem;">St. Ann's English Medium School</span>
-                    <span class="badge bg-white border border-primary text-primary" style="font-size:0.75rem;">KGBV School</span>
-                    <span class="badge bg-white border border-primary text-primary" style="font-size:0.75rem;">D-Mart Mall</span>
-                  </div>
-                  
-                  <button class="btn-gold mt-4 py-2 px-3 hoverable-element" onclick="window.open('https://maps.google.com', '_blank')">
-                    Launch Google Navigation
-                  </button>
+                <div>
+                    <label class="block text-[9px] md:text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2 ml-1">Contact Number *</label>
+                    <input type="tel" id="eq-phone" class="w-full bg-white border border-gray-200 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none transition-colors shadow-sm" placeholder="Your phone number">
                 </div>
-              </div>
+                <div>
+                    <label class="block text-[9px] md:text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2 ml-1">Project of Interest *</label>
+                    <select id="eq-project" onchange="toggleOtherInput()" class="w-full bg-white border border-gray-200 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none transition-colors shadow-sm">
+                        <option value="Apex Happy Homes">Apex Happy Homes</option>
+                        <option value="Apex Residency">Apex Residency</option>
+                        <option value="Apex Avenue">Apex Avenue</option>
+                        <option value="Other">Other (Please Specify)</option>
+                    </select>
+                </div>
+                <div id="eq-other-container" class="hidden transition-all">
+                    <label class="block text-[9px] md:text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 md:mb-2 ml-1">What would you like to know?</label>
+                    <textarea id="eq-other" rows="2" class="w-full bg-white border border-gray-200 rounded-lg px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none transition-colors shadow-sm resize-none" placeholder="Type your query here..."></textarea>
+                </div>
+                
+                <button onclick="submitEnquiry()" class="mt-2 md:mt-4 w-full bg-brand-navy text-white hover:bg-brand-gold transition-colors py-3 md:py-3.5 rounded-lg text-[10px] md:text-xs font-semibold tracking-widest uppercase shadow-md flex justify-center items-center gap-2">
+                    Send via WhatsApp
+                    <span class="material-symbols-outlined text-sm md:text-base">send</span>
+                </button>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Schedule Visit Call to Action -->
-    <section class="py-5" style="background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%); border-top: 1px solid var(--glass-border);">
-      <div class="container py-5 text-center">
-        <div class="row justify-content-center" data-aos="zoom-in">
-          <div class="col-lg-8">
-            <h2 class="display-font text-dark mb-3" style="font-size: 3rem;">SCHEDULE A PRIVATE SITE VISIT</h2>
-            <p style="color: var(--text-gray); max-width:600px; margin: auto; line-height:1.7;" class="mb-4">
-              Book a curated experience with Mr. Thirupalu and our engineering heads to walk through layouts and review structural material samples.
-            </p>
-            <form id="visitForm" class="row g-3 max-width-md mx-auto" onsubmit="handleVisitSubmit(event)" style="max-width: 600px;">
-              <div class="col-md-6">
-                <input type="text" class="form-control p-3 bg-white text-dark border-secondary-subtle" placeholder="Your Name" required>
-              </div>
-              <div class="col-md-6">
-                <input type="tel" class="form-control p-3 bg-white text-dark border-secondary-subtle" placeholder="Your Phone Number" required>
-              </div>
-              <div class="col-12 mt-3">
-                <button type="submit" class="btn-gold hoverable-element w-100 py-3">Register My Visit Window</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- Footer -->
-  <footer class="py-5">
-    <div class="container py-4">
-      <div class="row g-4 justify-content-between">
-        <div class="col-lg-4">
-          <h4 class="display-font text-primary mb-3">APEX <span>CONSTRUCTIONS</span></h4>
-          <p style="color: var(--text-gray); font-size: 0.9rem; line-height: 1.8;">
-            Erecting prime real estate engineering standards across Anantapur, Andhra Pradesh since 1997. Registered CREDAI Member.
-          </p>
-          <div class="d-flex gap-3 mt-3">
-            <a href="#" class="text-primary fs-5"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="text-primary fs-5"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="text-primary fs-5"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="text-primary fs-5"><i class="bi bi-whatsapp"></i></a>
-          </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-6">
-          <h5 class="text-dark display-font mb-3">Corporate Links</h5>
-          <ul class="list-unstyled" style="font-size:0.9rem; line-height: 2.2;">
-            <li><a href="#home" onclick="switchView('home')" class="text-gray text-decoration-none hover-text-gold">Home Portal</a></li>
-            <li><a href="#about" onclick="switchView('home', 'about')" class="text-gray text-decoration-none hover-text-gold">About Legacy</a></li>
-            <li><a href="#projects" onclick="switchView('home', 'projects')" class="text-gray text-decoration-none hover-text-gold">Our Portfolios</a></li>
-            <li><a href="#happyhomes" onclick="switchView('happyhomes')" class="text-gray text-decoration-none hover-text-gold">Apex Happy Homes</a></li>
-            <li><a href="#contact" onclick="switchView('home', 'contact')" class="text-gray text-decoration-none hover-text-gold">Direct Consultation</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-          <h5 class="text-dark display-font mb-3">Office Location</h5>
-          <p style="color: var(--text-gray); font-size:0.9rem; line-height:1.7;">
-            Lakshmi Sadanam, Bellary Bypass Circle,<br>
-            Ananthapuramu - 515004, AP, India.<br>
-            Phone: +91 9849140626, +91 8453189999
-          </p>
-        </div>
-      </div>
-      
-      <hr style="border-color: var(--glass-border); margin: 40px 0 20px 0;">
-      
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start">
-          <p class="m-0 text-gray" style="font-size:0.8rem;">
-            &copy; 2026 Apex Constructions &amp; Infra Projects. All Rights Reserved.
-          </p>
-        </div>
-        <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-          <p class="m-0 text-gray" style="font-size:0.8rem;">
-            Designed with Architectural Fidelity
-          </p>
-        </div>
-      </div>
     </div>
-  </footer>
 
-  <!-- Lightbox Modal container -->
-  <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
-    <span class="position-absolute top-0 end-0 m-4 text-white fs-1" style="cursor:pointer;">&times;</span>
-    <img class="lightbox-content" id="lightboxImg">
-  </div>
-
-  <!-- General Notification Modal -->
-  <div class="modal fade" id="infoModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-white text-dark border border-primary">
-        <div class="modal-header border-bottom">
-          <h5 class="modal-title display-font text-primary" id="infoModalTitle">Notification</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="infoModalBody">
-          Success message goes here.
-        </div>
-        <div class="modal-footer border-top">
-          <button type="button" class="btn-gold px-4 py-2" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-  <script>
-    // Initialize AOS
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-
-    // Intro Loader Line Drawing Logic & Auto transition
-    window.onload = function() {
-      const canvas = document.getElementById('loader-canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      // Draw elegant mathematical grid representation
-      function drawLines() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = 'rgba(0, 82, 204, 0.1)';
-        ctx.lineWidth = 0.5;
+    <div class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[90] flex flex-col items-end gap-3 md:gap-4">
         
-        ctx.beginPath();
-        for(let i=0; i<canvas.width; i+=40) {
-          ctx.moveTo(i, 0);
-          ctx.lineTo(i, canvas.height);
-        }
-        for(let j=0; j<canvas.height; j+=40) {
-          ctx.moveTo(0, j);
-          ctx.lineTo(canvas.width, j);
-        }
-        ctx.stroke();
-      }
-      drawLines();
+        <div id="ai-chat" class="hidden w-[calc(100vw-2rem)] sm:w-[350px] bg-white shadow-[0_15px_40px_-5px_rgba(0,0,0,0.2)] rounded-2xl flex-col overflow-hidden transition-all duration-300 origin-bottom-right mb-2 border border-gray-100">
+            <div class="bg-white px-4 md:px-5 py-3 md:py-4 flex justify-between items-center border-b border-gray-100 relative z-10 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-brand-navy flex items-center justify-center shadow-md">
+                        <span class="material-symbols-outlined text-brand-gold text-base md:text-lg">smart_toy</span>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-brand-navy text-xs md:text-sm">Apex Assistant</h4>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500"></span>
+                            <p class="text-[8px] md:text-[9px] text-gray-400 uppercase tracking-widest font-medium">Online</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-brand-navy transition-colors w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
+            
+            <div id="chat-messages" class="h-[280px] md:h-[320px] overflow-y-auto p-4 md:p-5 bg-[#FAFAFA] flex flex-col gap-3 md:gap-4 text-xs md:text-sm scroll-smooth">
+                <div class="bg-white border border-gray-200 text-brand-text py-2.5 px-3 md:py-3 md:px-4 shadow-sm self-start max-w-[85%] rounded-2xl rounded-tl-sm leading-relaxed">
+                    Welcome to Apex Constructions. Please say <b>'Hi'</b> or <b>'Hello'</b> to begin.
+                </div>
+            </div>
+            
+            <div class="p-2.5 md:p-3 bg-white border-t border-gray-100 flex items-center gap-2">
+                <input id="ai-input" type="text" placeholder="Type your message..." class="flex-1 bg-gray-50 border border-gray-200 rounded-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm focus:ring-1 focus:ring-brand-gold focus:border-brand-gold focus:outline-none transition-all text-brand-navy placeholder-gray-400" onkeydown="handleEnter(event)">
+                <button onclick="sendMessage()" class="w-9 h-9 md:w-10 md:h-10 bg-brand-navy text-white rounded-full flex items-center justify-center hover:bg-brand-gold transition-colors shrink-0 shadow-md">
+                    <span class="material-symbols-outlined text-[16px] md:text-[18px] ml-0.5">send</span>
+                </button>
+            </div>
+        </div>
 
-      // GSAP Animations inside Loader
-      gsap.to("#loaderLogo", { opacity: 1, y: 0, duration: 0.2, ease: "power4.out" });
+        <button onclick="toggleChat()" class="w-12 h-12 md:w-14 md:h-14 bg-brand-navy text-brand-gold rounded-full shadow-corporate flex items-center justify-center hover:bg-brand-gold hover:text-white transition-all duration-300 hover:-translate-y-1 z-50 relative">
+            <span class="material-symbols-outlined text-xl md:text-2xl">chat_bubble</span>
+        </button>
+    </div>
 
-      // Auto fadeout loader after exactly 0.3 seconds (300ms)
-      setTimeout(() => {
-        skipLoader();
-      }, 300);
-    };
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Navbar Scroll Effect ---
+            const navbar = document.getElementById('navbar');
+            const logo = document.getElementById('nav-logo');
+            const links = document.getElementById('nav-links');
+            const chatIcon = document.getElementById('nav-chat-icon');
+            const enquireBtn = document.getElementById('nav-enquire-btn');
+            const hamburgerLines = document.querySelectorAll('.hamburger-line');
 
-    function skipLoader() {
-      gsap.to("#video-loader", {
-        opacity: 0,
-        pointerEvents: "none",
-        duration: 0.2,
-        ease: "power2.out",
-        onComplete: () => {
-          document.getElementById('video-loader').style.display = 'none';
-          triggerHeroCounter();
-        }
-      });
-    }
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md', 'py-3', 'md:py-4');
+                    navbar.classList.remove('bg-transparent', 'border-b', 'border-white/20', 'py-4', 'md:py-5');
+                    
+                    logo.classList.replace('text-white', 'text-brand-navy');
+                    links.classList.replace('text-white', 'text-brand-navy');
+                    chatIcon.classList.replace('text-white', 'text-brand-navy');
+                    
+                    enquireBtn.classList.add('border-brand-navy', 'text-brand-navy');
+                    enquireBtn.classList.remove('border-white', 'text-white');
+                    enquireBtn.classList.replace('hover:text-brand-navy', 'hover:text-white');
+                    enquireBtn.classList.add('hover:bg-brand-navy');
+                    
+                    hamburgerLines.forEach(line => line.classList.replace('bg-white', 'bg-brand-navy'));
+                } else {
+                    navbar.classList.remove('bg-white', 'shadow-md', 'py-3', 'md:py-4');
+                    navbar.classList.add('bg-transparent', 'border-b', 'border-white/20', 'py-4', 'md:py-5');
+                    
+                    logo.classList.replace('text-brand-navy', 'text-white');
+                    links.classList.replace('text-brand-navy', 'text-white');
+                    chatIcon.classList.replace('text-brand-navy', 'text-white');
+                    
+                    enquireBtn.classList.remove('border-brand-navy', 'text-brand-navy', 'hover:bg-brand-navy', 'hover:text-white');
+                    enquireBtn.classList.add('border-white', 'text-white', 'hover:text-brand-navy');
+                    
+                    hamburgerLines.forEach(line => line.classList.replace('bg-brand-navy', 'bg-white'));
+                }
+            });
 
-    // Hero Stats Counter Logic
-    function triggerHeroCounter() {
-      const stats = document.querySelectorAll('.hero-stat-number');
-      stats.forEach(stat => {
-        const target = +stat.getAttribute('data-target');
-        const updateCount = () => {
-          const current = +stat.innerText;
-          const increment = Math.ceil(target / 30);
-          if (current < target) {
-            stat.innerText = current + increment;
-            setTimeout(updateCount, 40);
-          } else {
-            stat.innerText = target + "+";
-          }
-        };
-        updateCount();
-      });
-    }
-
-    // Scroll Sticky Navbar styling
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('mainNavbar');
-      if (window.scrollY > 80) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Custom SPA Animated View Switching with smooth scroll redirection capability
-    function switchView(viewName, targetAnchorId = null) {
-      const activeNavLinks = document.querySelectorAll('.nav-link');
-      activeNavLinks.forEach(link => {
-        link.classList.remove('active');
-      });
-
-      const homeView = document.getElementById('home-view');
-      const happyHomesView = document.getElementById('happyhomes-view');
-
-      // Robust Auto-collapse navigation menu on mobile after selection
-      const navCollapse = document.getElementById('navbarNav');
-      if (navCollapse && navCollapse.classList.contains('show')) {
-        let bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
-        if (!bsCollapse) {
-          bsCollapse = new bootstrap.Collapse(navCollapse, { toggle: false });
-        }
-        bsCollapse.hide();
-      }
-
-      if (viewName === 'happyhomes' || viewName === 'gallery') {
-        gsap.to('#home-view', {
-          opacity: 0,
-          duration: 0.3,
-          onComplete: () => {
-            homeView.classList.remove('active');
-            happyHomesView.classList.add('active');
-            gsap.fromTo('#happyhomes-view', { opacity: 0 }, { opacity: 1, duration: 0.4 });
-            window.scrollTo(0, 0);
-            switchBlueprint('eastDuplex', document.querySelector('.blueprint-selector-btn'));
-            if (targetAnchorId) {
-              setTimeout(() => { scrollToElement(targetAnchorId); }, 200);
+            // --- Hero Crossfade Slider ---
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            if(slides.length > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('opacity-100');
+                    slides[currentSlide].classList.add('opacity-0');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.remove('opacity-0');
+                    slides[currentSlide].classList.add('opacity-100');
+                }, 5000); 
             }
-            AOS.refresh();
-          }
+
+            // --- GSAP Animations ---
+            gsap.registerPlugin(ScrollTrigger);
+            const revealElements = document.querySelectorAll('.reveal-up');
+            revealElements.forEach((el) => {
+                gsap.from(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                gsap.to(counter, {
+                    innerText: target,
+                    duration: 2.5,
+                    snap: { innerText: 1 },
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: counter,
+                        start: "top 90%"
+                    }
+                });
+            });
         });
-      } else {
-        gsap.to('#happyhomes-view', {
-          opacity: 0,
-          duration: 0.3,
-          onComplete: () => {
-            happyHomesView.classList.remove('active');
-            homeView.classList.add('active');
-            gsap.fromTo('#home-view', { opacity: 0 }, { opacity: 1, duration: 0.4 });
-            window.scrollTo(0, 0);
-            if (targetAnchorId) {
-              setTimeout(() => { scrollToElement(targetAnchorId); }, 200);
+
+        // --- Mobile Menu Logic ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('opacity-0')) {
+                menu.classList.remove('opacity-0', 'pointer-events-none');
+                menu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.classList.add('menu-open');
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none');
+                menu.classList.remove('opacity-100', 'pointer-events-auto');
+                document.body.classList.remove('menu-open');
             }
-            AOS.refresh();
-          }
-        });
-      }
-    }
+        }
 
-    // Scroll helper to anchor locations
-    function scrollToElement(id) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+        // --- Home Projects Filtering Logic ---
+        function filterHomeProjects(category, buttonElement) {
+            const buttons = document.querySelectorAll('.home-filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'text-brand-navy', 'font-semibold');
+                btn.classList.add('text-gray-500');
+            });
+            buttonElement.classList.add('active', 'text-brand-navy', 'font-semibold');
+            buttonElement.classList.remove('text-gray-500');
 
-    // Lightbox triggers
-    function openLightbox(imgSrc) {
-      document.getElementById('lightboxImg').src = imgSrc;
-      document.getElementById('lightboxModal').style.display = "block";
-    }
+            const cards = document.querySelectorAll('.home-project-card');
+            let visibleCount = 0;
 
-    // Close lightbox modal
-    function closeLightbox() {
-      document.getElementById('lightboxModal').style.display = "none";
-    }
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
 
-    // Form Submissions - Direct WhatsApp redirect
-    function handleWhatsAppSubmit(event) {
-      event.preventDefault();
-      const name = encodeURIComponent(document.getElementById('formName').value);
-      const place = encodeURIComponent(document.getElementById('formPlace').value);
-      const phone = encodeURIComponent(document.getElementById('formPhone').value);
-      
-      const message = `Hi Apex Constructions, my name is ${name} from ${place}. My contact number is ${phone}. I would like to schedule a walk-through consultation for Apex Happy Homes!`;
-      const encodedMessage = encodeURIComponent(message);
-      
-      // Open WhatsApp directly using standard official API
-      window.open(`https://api.whatsapp.com/send?phone=919849140626&text=${encodedMessage}`, '_blank');
-    }
+            const noResults = document.getElementById('home-no-results');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                gsap.fromTo(cards, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5, stagger: 0.1});
+            }
+        }
 
-    // Mobile Autoplay Force Trigger - standard fallback for iOS Safari battery saver modes
-    document.addEventListener('touchstart', function() {
-      const video = document.querySelector('.hero-bg-media');
-      if (video && video.paused) {
-        video.play().catch(err => console.log("Low power / autoplay restrictions bypassed gracefully"));
-      }
-    }, { once: true });
+        // --- WhatsApp Enquiry Modal Logic ---
+        function openEnquiryModal() {
+            const modal = document.getElementById('enquiry-modal');
+            const content = document.getElementById('enquiry-modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; 
+        }
 
-    function handleVisitSubmit(event) {
-      event.preventDefault();
-      const modalTitle = document.getElementById('infoModalTitle');
-      const modalBody = document.getElementById('infoModalBody');
-      
-      modalTitle.innerText = "Site Visit Confirmed";
-      modalBody.innerHTML = "Your walk-through schedule of Apex Happy Homes at Kurugunta has been verified. Our executive engineers will connect to finalize your visit window and coordinate gate entry clearance.";
-      
-      const infoModal = new bootstrap.Modal(document.getElementById('infoModal'));
-      infoModal.show();
-      document.getElementById('visitForm').reset();
-    }
+        function closeEnquiryModal() {
+            const modal = document.getElementById('enquiry-modal');
+            const content = document.getElementById('enquiry-modal-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        }
 
-    function showGlobalAlert(title, message) {
-      document.getElementById('infoModalTitle').innerText = title;
-      document.getElementById('infoModalBody').innerHTML = message;
-      const infoModal = new bootstrap.Modal(document.getElementById('infoModal'));
-      infoModal.show();
-    }
+        function toggleOtherInput() {
+            const projectSelect = document.getElementById('eq-project').value;
+            const otherContainer = document.getElementById('eq-other-container');
+            if (projectSelect === 'Other') {
+                otherContainer.classList.remove('hidden');
+            } else {
+                otherContainer.classList.add('hidden');
+            }
+        }
 
-    // Blueprint Floorplan Rendering and Selector logic
-    const blueprintData = {
-      eastDuplex: {
-        title: "East Facing Duplex Layout",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
-        desc: "Built-up area: 2240 SFT. Designed over a 4.00 Cents plot with 3' rear open, 5' side open, and massive ground car parking structure.",
-        specs: [
-          "Plot Area: 4.00 Cents",
-          "Built-up Area: 2240 SFT",
-          "Ground Level Living: 16'6\" x 20'0\"",
-          "Master Bed Room: 13'8\" x 11'6\"",
-          "Premium Kitchen: 13'8\" x 13'3\"",
-          "Car Parking Space: 11'9\" x 17'9\"",
-          "In-built Lift shaft: 5'0\" x 6'0\""
-        ],
-        svg: `
-          <!-- CAD Floorplan drawing mockup for East Duplex -->
-          <rect x="10" y="10" width="380" height="280" fill="none" stroke="#0052CC" stroke-width="2" stroke-dasharray="5,5"/>
-          <text x="200" y="30" fill="var(--text-dark)" font-size="10" text-anchor="middle" letter-spacing="1">GROUND FLOOR PLAN</text>
-          
-          <!-- Outer Structural Wall -->
-          <rect x="40" y="60" width="320" height="180" fill="none" stroke="#FF1493" stroke-width="3" />
-          
-          <!-- Rooms Grid -->
-          <line x1="200" y1="60" x2="200" y2="240" stroke="#0052CC" stroke-width="2" />
-          <line x1="40" y1="150" x2="200" y2="150" stroke="#0052CC" stroke-width="2" />
-          
-          <!-- Labeled partitions -->
-          <text x="120" y="110" fill="var(--text-dark)" font-size="12" font-weight="bold" text-anchor="middle">PARKING</text>
-          <text x="120" y="125" fill="#FF1493" font-size="10" text-anchor="middle">11'9" x 17'9"</text>
-          
-          <text x="120" y="200" fill="var(--text-dark)" font-size="12" font-weight="bold" text-anchor="middle">LOBBY &amp; LIFT</text>
-          <text x="280" y="150" fill="var(--text-dark)" font-size="12" font-weight="bold" text-anchor="middle">LIVING AREA</text>
-          <text x="280" y="165" fill="#FF1493" font-size="10" text-anchor="middle">16'6" x 20'0"</text>
-        `
-      },
-      westDuplex: {
-        title: "West Facing Duplex Layout",
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80",
-        desc: "Built-up area: 2280 SFT. Optimized for spacious vertical living with an integrated gym, wider entrance balconies, and private lifts.",
-        specs: [
-          "Plot Area: 4.00 Cents",
-          "Built-up Area: 2280 SFT",
-          "Living Area: 17'5\" x 19'0\"",
-          "Master Bed Room: 14'0\" x 13'0\"",
-          "Spacious Kitchen: 21'6\" x 8'0\"",
-          "Private Gym: 14'0\" x 8'0\"",
-          "Front Open Balcony: 5'0\" Wide"
-        ],
-        svg: `
-          <rect x="10" y="10" width="380" height="280" fill="none" stroke="#0052CC" stroke-width="2" stroke-dasharray="5,5"/>
-          <text x="200" y="30" fill="var(--text-dark)" font-size="10" text-anchor="middle" letter-spacing="1">WEST DUPLEX SPECIFICATION</text>
-          
-          <rect x="50" y="70" width="300" height="160" fill="none" stroke="#FF1493" stroke-width="3" />
-          <line x1="180" y1="70" x2="180" y2="230" stroke="#0052CC" stroke-width="2" />
-          <line x1="180" y1="150" x2="350" y2="150" stroke="#0052CC" stroke-width="2" />
-          
-          <text x="110" y="140" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">KITCHEN</text>
-          <text x="110" y="155" fill="#FF1493" font-size="9" text-anchor="middle">21'6" x 8'0"</text>
-          
-          <text x="260" y="110" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">MASTER BEDROOM</text>
-          <text x="260" y="195" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">GYM ROOM</text>
-        `
-      },
-      eastSimplex: {
-        title: "East Facing Simplex Layout",
-        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80",
-        desc: "Built-up area: 1200 SFT. Perfect, high-efficiency single floor layout configuration with broad entry patio, dining-pooja rooms, and wide balcony.",
-        specs: [
-          "Plot Area: 4.00 Cents",
-          "Built-up Area: 1200 SFT",
-          "Central Hall: 17'0\" x 16'8\"",
-          "Dining Area: 12'8\" x 12'0\"",
-          "Master Bed Room: 12'6\" x 13'3\"",
-          "Children Bed Room: 13'2\" x 11'2\"",
-          "Front Open Balcony: 8'0\" Wide"
-        ],
-        svg: `
-          <rect x="10" y="10" width="380" height="280" fill="none" stroke="#0052CC" stroke-width="2" stroke-dasharray="5,5"/>
-          <text x="200" y="30" fill="var(--text-dark)" font-size="10" text-anchor="middle" letter-spacing="1">EAST SIMPLEX LEVEL</text>
-          
-          <rect x="60" y="60" width="280" height="180" fill="none" stroke="#FF1493" stroke-width="3" />
-          <line x1="60" y1="140" x2="340" y2="140" stroke="#0052CC" stroke-width="2" />
-          <line x1="200" y1="140" x2="200" y2="240" stroke="#0052CC" stroke-width="2" />
-          
-          <text x="200" y="105" fill="var(--text-dark)" font-size="12" font-weight="bold" text-anchor="middle">CENTRAL HALL</text>
-          <text x="130" y="190" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">BEDROOM</text>
-          <text x="270" y="190" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">DINING</text>
-        `
-      },
-      westSimplex: {
-        title: "West Facing Simplex Layout",
-        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80",
-        desc: "Built-up area: 1200 SFT. Complete optimized blueprint highlighting cross-ventilation, robust front entrance balconies, and spacious Master Suites.",
-        specs: [
-          "Plot Area: 4.00 Cents",
-          "Built-up Area: 1200 SFT",
-          "Main Hall: 12'0\" x 18'0\"",
-          "Kitchen: 21'0\" x 7'6\"",
-          "Master Bed Room: 13'0\" x 11'6\"",
-          "Children Bed Room: 13'0\" x 10'0\"",
-          "Front Open Patio: 4'0\" Wide"
-        ],
-        svg: `
-          <rect x="10" y="10" width="380" height="280" fill="none" stroke="#0052CC" stroke-width="2" stroke-dasharray="5,5"/>
-          <text x="200" y="30" fill="var(--text-dark)" font-size="10" text-anchor="middle" letter-spacing="1">WEST SIMPLEX LEVEL</text>
-          
-          <rect x="60" y="60" width="280" height="180" fill="none" stroke="#FF1493" stroke-width="3" />
-          <line x1="60" y1="150" x2="340" y2="150" stroke="#0052CC" stroke-width="2" />
-          
-          <text x="200" y="110" fill="var(--text-dark)" font-size="12" font-weight="bold" text-anchor="middle">MAIN HALL</text>
-          <text x="200" y="200" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">BEDROOMS &amp; UTILITY</text>
-        `
-      },
-      northSimplex: {
-        title: "North Facing Simplex Layout",
-        image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80",
-        desc: "Built-up area: 1200 SFT. Vastu-compliant layout design with direct north entry balconies, dedicated pooja partitions, and integrated master suites.",
-        specs: [
-          "Plot Area: 4.00 Cents",
-          "Built-up Area: 1200 SFT",
-          "Hall/Dining: 13'2\" x 21'2\"",
-          "Kitchen: 13'2\" x 8'11\"",
-          "Master Bed Room: 13'0\" x 12'8\"",
-          "Children Bed Room: 13'0\" x 12'0\"",
-          "Dedicated Pooja Room Space"
-        ],
-        svg: `
-          <rect x="10" y="10" width="380" height="280" fill="none" stroke="#0052CC" stroke-width="2" stroke-dasharray="5,5"/>
-          <text x="200" y="30" fill="var(--text-dark)" font-size="10" text-anchor="middle" letter-spacing="1">NORTH SIMPLEX LEVEL</text>
-          
-          <rect x="60" y="60" width="280" height="180" fill="none" stroke="#FF1493" stroke-width="3" />
-          <line x1="180" y1="60" x2="180" y2="240" stroke="#0052CC" stroke-width="2" />
-          
-          <text x="120" y="150" fill="var(--text-dark)" font-size="12" font-weight="bold" text-anchor="middle">HALL/DINING</text>
-          <text x="260" y="150" fill="var(--text-dark)" font-size="11" font-weight="bold" text-anchor="middle">BEDROOMS</text>
-        `
-      }
-    };
+        function submitEnquiry() {
+            const name = document.getElementById('eq-name').value.trim();
+            const phone = document.getElementById('eq-phone').value.trim();
+            const project = document.getElementById('eq-project').value;
+            const otherDetails = document.getElementById('eq-other').value.trim();
 
-    function switchBlueprint(facingKey, btnElement) {
-      // Toggle button classes
-      const btns = document.querySelectorAll('.blueprint-selector-btn');
-      btns.forEach(btn => btn.classList.remove('active'));
-      btnElement.classList.add('active');
+            if (!name || !phone) {
+                alert("Please enter both your Name and Contact Number.");
+                return;
+            }
 
-      const data = blueprintData[facingKey];
-      
-      // Update fields
-      document.getElementById('blueprintTitle').innerText = data.title;
-      document.getElementById('blueprintDescription').innerText = data.desc;
-      document.getElementById('blueprintMainImg').src = data.image;
-      document.getElementById('floorPlanSvg').innerHTML = data.svg;
+            let interest = project;
+            if (project === 'Other') {
+                if (!otherDetails) {
+                    alert("Please specify what you would like to know in the text area.");
+                    return;
+                }
+                interest = `Other - ${otherDetails}`;
+            }
 
-      // Update spec list items
-      const metricsList = document.getElementById('spatialMetricsList');
-      metricsList.innerHTML = '';
-      data.specs.forEach(spec => {
-        const li = document.createElement('li');
-        li.innerHTML = `<i class="bi bi-arrow-right-short text-primary"></i> ${spec}`;
-        metricsList.appendChild(li);
-      });
+            const rawMessage = `Hello, I would like to enquire about your projects.\n\n*Name:* ${name}\n*Contact:* ${phone}\n*Interested In:* ${interest}`;
+            const encodedMessage = encodeURIComponent(rawMessage);
+            
+            window.open(`https://api.whatsapp.com/send?phone=919966041499&text=${encodedMessage}`, '_blank');
+            
+            document.getElementById('eq-name').value = '';
+            document.getElementById('eq-phone').value = '';
+            document.getElementById('eq-other').value = '';
+            closeEnquiryModal();
+        }
 
-      // Simple GSAP punch-in animation
-      gsap.fromTo("#blueprintGraphicWrapper", { opacity: 0.3, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.4 });
-    }
-  </script>
+        // --- Chatbot Logic ---
+        function toggleChat() {
+            const chat = document.getElementById('ai-chat');
+            if (chat.classList.contains('hidden')) {
+                chat.classList.remove('hidden');
+                chat.classList.add('flex');
+                document.getElementById('ai-input').focus();
+                gsap.fromTo(chat, { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+            } else {
+                gsap.to(chat, { 
+                    opacity: 0, y: 20, scale: 0.95, duration: 0.2, ease: "power2.in",
+                    onComplete: () => {
+                        chat.classList.add('hidden');
+                        chat.classList.remove('flex');
+                        gsap.set(chat, { clearProps: "all" });
+                    }
+                });
+            }
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('ai-input');
+            const message = inputField.value.trim();
+            if (message === '') return;
+
+            const chatArea = document.getElementById('chat-messages');
+            
+            chatArea.innerHTML += `
+                <div class="bg-brand-navy text-white py-2 px-3.5 md:py-2.5 md:px-4 text-xs md:text-sm shadow-md self-end max-w-[85%] rounded-2xl rounded-tr-sm leading-relaxed">
+                    ${message}
+                </div>
+            `;
+            
+            inputField.value = '';
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            // Updated Bot Logic
+            setTimeout(() => {
+                let reply = "";
+                let msgLower = message.toLowerCase();
+                
+                if(msgLower.includes('hi') || msgLower.includes('hello') || msgLower.includes('hey')) {
+                    reply = "Hello! Our present flagship project is <b>Apex Happy Homes</b>, a premium gated community featuring luxury villas. For more detailed information, please click the <b>'Enquire Now'</b> button in the menu above or visit the Contact section.";
+                } else {
+                    reply = "Thank you for your message. For quick assistance and detailed information regarding our projects, please reach out via the <b>'Enquire Now'</b> button.";
+                }
+
+                chatArea.innerHTML += `
+                    <div class="bg-white border border-gray-200 text-brand-text py-2 px-3.5 md:py-2.5 md:px-4 text-xs md:text-sm shadow-sm self-start max-w-[85%] rounded-2xl rounded-tl-sm leading-relaxed">
+                        ${reply}
+                    </div>
+                `;
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }, 800);
+        }
+    </script>
 </body>
 </html>

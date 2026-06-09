@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Apex Happy Homes | Premium Gated Community</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@300,0,0,24" rel="stylesheet" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0A192F',
+                            gold: '#D4AF37',
+                            dark: '#111827',
+                            gray: '#F3F4F6',
+                            text: '#374151',
+                            light: '#FFFFFF'
+                        }
+                    },
+                    boxShadow: {
+                        'corporate': '0 20px 50px -20px rgba(0,0,0,0.15)',
+                        'elegant': '0 10px 30px -10px rgba(10, 25, 47, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #374151; background-color: #FAFAFA; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+
+        /* Splash Screen Settings */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: #0A192F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hide main content initially to prevent FOUC */
+        #main-wrapper { opacity: 0; }
+
+        .btn-gold {
+            background-color: #D4AF37;
+            color: #fff;
+            transition: all 0.4s ease;
+        }
+        .btn-gold:hover { background-color: #b5952f; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+
+        /* Image Zoom Utilities */
+        .zoom-wrapper { overflow: hidden; border-radius: 4px; }
+        .zoom-img { transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .zoom-wrapper:hover .zoom-img { transform: scale(1.03); cursor: zoom-in; }
+
+        /* Scrollbar & Mobile Overrides */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-white">
+
+    <div id="splash-screen">
+        <img src="assets/apexhappyhomes.png" alt="Apex Happy Homes Entrance" class="absolute inset-0 w-full h-full object-cover opacity-70">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy via-transparent to-brand-navy opacity-80"></div>
+        <div class="relative z-10 text-center flex flex-col items-center px-4">
+            <span class="text-brand-gold tracking-[0.3em] uppercase text-xs md:text-sm mb-4 font-semibold">Welcome To</span>
+            <h1 class="font-serif text-4xl md:text-7xl text-white tracking-wide shadow-sm text-center leading-tight">Apex Happy Homes</h1>
+            <div class="mt-8 w-px h-12 md:h-16 bg-brand-gold animate-pulse"></div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="fixed inset-0 z-[9999] hidden bg-black/95 items-center justify-center p-4 md:p-8 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeLightbox(event)">
+        <button onclick="closeLightbox(event)" class="absolute top-6 right-6 text-white/70 hover:text-brand-gold transition-colors z-50">
+            <span class="material-symbols-outlined text-4xl md:text-5xl">close</span>
+        </button>
+        <img id="lightbox-img" src="" alt="Full Screen Preview" class="max-w-full max-h-full object-contain rounded-md shadow-2xl scale-95 transition-transform duration-300">
+        <div class="absolute bottom-6 text-white/50 text-xs tracking-widest uppercase">Click anywhere to close</div>
+    </div>
+
+    <div id="main-wrapper" class="relative">
+
+        <header class="fixed top-0 w-full z-[100] bg-white/95 backdrop-blur-md shadow-sm py-3 md:py-5 transition-all border-b border-gray-100">
+            <div class="max-w-[90rem] mx-auto px-4 md:px-8 flex justify-between items-center">
+                <div class="flex items-center gap-3 md:gap-8">
+                    <a href="index.html" class="flex items-center gap-1 md:gap-2 text-brand-navy hover:text-brand-gold transition-colors text-xs md:text-sm font-semibold tracking-wider uppercase group">
+                        <span class="material-symbols-outlined text-lg md:text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        <span class="hidden sm:inline">Back</span>
+                    </a>
+                    <div class="h-8 w-px bg-gray-200"></div>
+                    <div class="flex flex-col text-brand-navy">
+                        <span class="font-serif text-lg md:text-xl tracking-wide font-bold leading-none">APEX</span>
+                        <span class="text-[8px] md:text-[9px] tracking-[0.25em] uppercase mt-1 text-brand-gold">Happy Homes</span>
+                    </div>
+                </div>
+                
+                <button
+    onclick="window.location.href='assets/Apex _ Final.pdf'"
+    class="border border-brand-navy text-brand-navy px-4 md:px-8 py-2 md:py-3 text-[10px] md:text-xs font-semibold tracking-wider hover:bg-brand-navy hover:text-white transition-all duration-300 whitespace-nowrap shadow-sm"
+>
+    <span class="hidden sm:inline">DOWNLOAD BROCHURE</span>
+    <span class="sm:hidden text-lg material-symbols-outlined">download</span>
+</button>
+        </header>
+
+        <section class="relative h-[60vh] md:h-[80vh] w-full mt-[60px] md:mt-[84px] bg-brand-navy">
+            <div id="project-slider" class="absolute inset-0 w-full h-full overflow-hidden">
+                <img src="assets/apexhappyhomes.png" 
+                     alt="Apex Happy Homes Exterior" 
+                     class="project-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 z-10">
+                <img src="assets/01.jpeg" 
+                     alt="sitemap" 
+                     class="project-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 z-0">
+                <img src="assets/02.jpeg" 
+                     alt="sitemap" 
+                     class="project-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 z-0">
+                <img src="assets/aerialview.png" 
+                     alt="sitemap" 
+                     class="project-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 z-0">
+            </div>
+            
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/30 via-transparent to-brand-navy/80 z-20"></div>
+            
+            <div class="absolute bottom-10 left-0 w-full z-30 px-4 md:px-12 flex justify-between items-end max-w-[90rem] mx-auto">
+                <div class="text-white">
+                    <span class="text-brand-gold text-[10px] md:text-xs font-semibold tracking-[0.3em] uppercase block mb-2 drop-shadow-md">Premium Gated Community</span>
+                    <h2 class="font-serif text-3xl md:text-5xl drop-shadow-lg">Experience Elevated Living.</h2>
+                </div>
+                <div class="hidden md:flex gap-3 pb-2">
+                    <div class="slide-dot w-12 h-[2px] bg-brand-gold transition-all duration-300"></div>
+                    <div class="slide-dot w-6 h-[2px] bg-white/40 transition-all duration-300"></div>
+                    <div class="slide-dot w-6 h-[2px] bg-white/40 transition-all duration-300"></div>
+                    <div class="slide-dot w-6 h-[2px] bg-white/40 transition-all duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-32 bg-white text-center px-4 md:px-6 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-12 bg-brand-gold"></div>
+            
+            <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-4 mt-6">Project Overview</span>
+            <h1 class="font-serif text-3xl md:text-5xl text-brand-navy mb-8 leading-tight">Masterfully Crafted <br class="hidden md:block">Communities.</h1>
+            <p class="max-w-3xl mx-auto text-brand-text font-light leading-relaxed text-sm md:text-base">
+                Apex Happy Homes is a harmonious blend of architectural brilliance and modern luxury. Nestled in the heart of Anantapur, every villa is meticulously designed to maximize space, light, and natural ventilation. We have curated a sanctuary that elevates your lifestyle while remaining deeply rooted in Vastu principles and sustainable engineering.
+            </p>
+        </section>
+
+        <section class="py-20 md:py-32 bg-brand-navy relative border-y-4 border-brand-gold">
+            <div class="max-w-[90rem] mx-auto px-4 md:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16">
+                    <div>
+                        <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-3">Curated Visuals</span>
+                        <h2 class="font-serif text-3xl md:text-5xl text-white">A Glimpse of Grandeur</h2>
+                    </div>
+                    <p class="text-gray-400 font-light text-sm max-w-sm mt-4 md:mt-0">Browse through our premium layouts and structural elegance. Click any image to view in full resolution.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    
+                    <div class="group relative rounded-md overflow-hidden aspect-[4/3] bg-brand-dark cursor-pointer shadow-lg" onclick="openLightbox('assets/apexhappyhomes.png')">
+                        <img src="assets/apexhappyhomes.png" alt="Apex Happy Homes" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/40 transition-colors duration-300"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-white text-2xl">zoom_in_map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative rounded-md overflow-hidden aspect-[4/3] bg-brand-dark cursor-pointer shadow-lg" onclick="openLightbox('assets/duplex.png')">
+                        <img src="assets/duplex.png" alt="Duplex View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/40 transition-colors duration-300"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-white text-2xl">zoom_in_map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative rounded-md overflow-hidden aspect-[4/3] bg-brand-dark cursor-pointer shadow-lg" onclick="openLightbox('assets/ff.jpeg')">
+                        <img src="assets/ff.jpeg" alt="Feature Image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/40 transition-colors duration-300"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-white text-2xl">zoom_in_map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative rounded-md overflow-hidden aspect-[4/3] bg-brand-dark cursor-pointer shadow-lg" onclick="openLightbox('assets/park.png')">
+                        <img src="assets/park.png" alt="Park View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/40 transition-colors duration-300"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-white text-2xl">zoom_in_map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative rounded-md overflow-hidden aspect-[4/3] bg-brand-dark cursor-pointer shadow-lg" onclick="openLightbox('assets/tbv.jpeg')">
+                        <img src="assets/tbv.jpeg" alt="Layout Detailed View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/40 transition-colors duration-300"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-white text-2xl">zoom_in_map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative rounded-md overflow-hidden aspect-[4/3] bg-brand-dark cursor-pointer shadow-lg" onclick="openLightbox('assets/simplex.png')">
+                        <img src="assets/simplex.png" alt="Simplex View" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/40 transition-colors duration-300"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-white text-2xl">zoom_in_map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-32 bg-brand-gray relative border-b border-gray-200 overflow-hidden">
+            <div class="max-w-[90rem] mx-auto px-4 md:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4">
+                    <div>
+                        <h2 class="font-serif text-3xl md:text-4xl text-brand-navy">Site Layout Plan</h2>
+                        <p class="text-xs md:text-sm text-gray-500 mt-3 font-light tracking-wide">AHUDA Approved • 40ft Wide Roads • Vastu Compliant</p>
+                    </div>
+                    <button onclick="openLightbox('assets/sitelayout.png')" class="flex items-center gap-2 text-[10px] md:text-xs tracking-widest uppercase font-semibold text-brand-navy bg-white px-4 py-2 shadow-sm rounded-md hover:text-brand-gold transition-colors">
+                        <span class="material-symbols-outlined text-brand-gold text-sm md:text-base">fullscreen</span> Click to Enlarge
+                    </button>
+                </div>
+                
+                <div class="zoom-wrapper w-full bg-white shadow-elegant p-2 md:p-6 rounded-md cursor-pointer" onclick="openLightbox('assets/sitelayout.png')">
+                    <img src="assets/sitelayout.png" alt="Apex Happy Homes Master Plan" class="zoom-img w-full h-auto object-contain max-h-[50vh] md:max-h-[75vh]">
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-32 bg-white">
+            <div class="max-w-[90rem] mx-auto px-4 md:px-8">
+                <div class="text-center mb-12 md:mb-20">
+                    <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-4">The Residences</span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-brand-navy">Choose Your Canvas</h2>
+                </div>
+
+                <div class="w-full overflow-hidden mb-10 md:mb-16">
+                    <div class="flex flex-nowrap md:flex-wrap overflow-x-auto hide-scrollbar justify-start md:justify-center gap-8 md:gap-16 border-b border-gray-200 pb-2 md:pb-4 px-2 md:px-0">
+                        <button class="tab-btn active pb-3 border-b-2 border-brand-gold text-brand-navy font-bold uppercase tracking-widest text-xs md:text-sm transition-colors whitespace-nowrap" onclick="switchFloorPlan('east-duplex')">
+                            East Facing Duplex
+                        </button>
+                        <button class="tab-btn pb-3 border-b-2 border-transparent text-gray-400 hover:text-brand-navy font-medium uppercase tracking-widest text-xs md:text-sm transition-colors whitespace-nowrap" onclick="switchFloorPlan('west-duplex')">
+                            West Facing Duplex
+                        </button>
+                        <button class="tab-btn pb-3 border-b-2 border-transparent text-gray-400 hover:text-brand-navy font-medium uppercase tracking-widest text-xs md:text-sm transition-colors whitespace-nowrap" onclick="switchFloorPlan('east-simplex')">
+                            East Facing Simplex
+                        </button>
+                        <button class="tab-btn pb-3 border-b-2 border-transparent text-gray-400 hover:text-brand-navy font-medium uppercase tracking-widest text-xs md:text-sm transition-colors whitespace-nowrap" onclick="switchFloorPlan('west-simplex')">
+                            West Facing Simplex
+                        </button>
+                        <button class="tab-btn pb-3 border-b-2 border-transparent text-gray-400 hover:text-brand-navy font-medium uppercase tracking-widest text-xs md:text-sm transition-colors whitespace-nowrap" onclick="switchFloorPlan('north-simplex')">
+                            North Facing Simplex
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative min-h-[50vh] md:min-h-[70vh] w-full">
+                    
+                    <div id="east-duplex" class="floor-plan-content absolute inset-0 w-full h-full opacity-100 transition-opacity duration-500 z-10 flex flex-col">
+                        <div class="bg-white shadow-elegant p-2 md:p-8 rounded-md flex-grow flex items-center justify-center border border-gray-100 cursor-pointer group" onclick="openLightbox('assets/eastfacingduplex.png')">
+                            <img src="assets/eastfacingduplex.png" alt="East Facing Duplex" class="w-full max-h-[60vh] object-contain group-hover:scale-[1.02] transition-transform duration-300">
+                        </div>
+                        <div class="text-center mt-10 md:mt-12">
+                            <button class="btn-gold px-8 md:px-12 py-4 text-xs md:text-sm tracking-widest uppercase font-semibold w-full md:w-auto shadow-md hover:shadow-lg rounded-md">Enquire About This Villa</button>
+                        </div>
+                    </div>
+
+                    <div id="west-duplex" class="floor-plan-content absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-500 z-0 flex flex-col">
+                        <div class="bg-white shadow-elegant p-2 md:p-8 rounded-md flex-grow flex items-center justify-center border border-gray-100 cursor-pointer group" onclick="openLightbox('assets/westfacingduplex.png')">
+                            <img src="assets/westfacingduplex.png" alt="West Facing Duplex" class="w-full max-h-[60vh] object-contain group-hover:scale-[1.02] transition-transform duration-300">
+                        </div>
+                        <div class="text-center mt-10 md:mt-12">
+                            <button class="btn-gold px-8 md:px-12 py-4 text-xs md:text-sm tracking-widest uppercase font-semibold w-full md:w-auto shadow-md rounded-md">Enquire About This Villa</button>
+                        </div>
+                    </div>
+
+                    <div id="east-simplex" class="floor-plan-content absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-500 z-0 flex flex-col">
+                        <div class="bg-white shadow-elegant p-2 md:p-8 rounded-md flex-grow flex items-center justify-center border border-gray-100 cursor-pointer group" onclick="openLightbox('assets/eastfacingsimplex.png')">
+                            <img src="assets/eastfacingsimplex.png" alt="East Facing Simplex" class="w-full max-h-[60vh] object-contain group-hover:scale-[1.02] transition-transform duration-300">
+                        </div>
+                        <div class="text-center mt-10 md:mt-12">
+                            <button class="btn-gold px-8 md:px-12 py-4 text-xs md:text-sm tracking-widest uppercase font-semibold w-full md:w-auto shadow-md rounded-md">Enquire About This Villa</button>
+                        </div>
+                    </div>
+
+                    <div id="west-simplex" class="floor-plan-content absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-500 z-0 flex flex-col">
+                        <div class="bg-white shadow-elegant p-2 md:p-8 rounded-md flex-grow flex items-center justify-center border border-gray-100 cursor-pointer group" onclick="openLightbox('assets/westfacesimplex.png')">
+                            <img src="assets/westfacesimplex.png" alt="West Facing Simplex" class="w-full max-h-[60vh] object-contain group-hover:scale-[1.02] transition-transform duration-300">
+                        </div>
+                        <div class="text-center mt-10 md:mt-12">
+                            <button class="btn-gold px-8 md:px-12 py-4 text-xs md:text-sm tracking-widest uppercase font-semibold w-full md:w-auto shadow-md rounded-md">Enquire About This Villa</button>
+                        </div>
+                    </div>
+
+                    <div id="north-simplex" class="floor-plan-content absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-500 z-0 flex flex-col">
+                        <div class="bg-white shadow-elegant p-2 md:p-8 rounded-md flex-grow flex items-center justify-center border border-gray-100 cursor-pointer group" onclick="openLightbox('assets/northfacingsimplex.png')">
+                            <img src="assets/northfacingsimplex.png" alt="North Facing Simplex" class="w-full max-h-[60vh] object-contain group-hover:scale-[1.02] transition-transform duration-300">
+                        </div>
+                        <div class="text-center mt-10 md:mt-12">
+                            <button class="btn-gold px-8 md:px-12 py-4 text-xs md:text-sm tracking-widest uppercase font-semibold w-full md:w-auto shadow-md rounded-md">Enquire About This Villa</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-brand-navy pt-16 pb-8 md:pt-20 text-center border-t-4 border-brand-gold px-4">
+            <div class="font-serif text-3xl md:text-4xl tracking-wide font-semibold text-white mb-2">APEX</div>
+            <p class="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-brand-gold mb-12 md:mb-16">Constructions</p>
+            
+            <div class="max-w-7xl mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] md:text-xs text-gray-500 tracking-wider uppercase font-light">
+                <p>© 2026 Apex Constructions & Infra Projects. All Rights Reserved.</p>
+                <div class="flex gap-4 md:gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. SPLASH SCREEN SEQUENCE (0.9s Hold) ---
+            const splashScreen = document.getElementById('splash-screen');
+            const mainWrapper = document.getElementById('main-wrapper');
+
+            // Hold the entry image for 0.9 seconds (900ms), then fade out
+            setTimeout(() => {
+                gsap.to(splashScreen, {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        splashScreen.style.display = 'none';
+                    }
+                });
+
+                gsap.to(mainWrapper, {
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power2.out",
+                    delay: 0.2
+                });
+
+            }, 900); 
+
+            // --- 2. HERO CAROUSEL LOGIC ---
+            const slides = document.querySelectorAll('#project-slider .project-slide');
+            const dots = document.querySelectorAll('.slide-dot');
+            let currentSlide = 0;
+            
+            if(slides.length > 0) {
+                setInterval(() => {
+                    // Update Slides
+                    slides[currentSlide].classList.remove('opacity-100', 'z-10');
+                    slides[currentSlide].classList.add('opacity-0', 'z-0');
+                    
+                    // Update Dots
+                    if(dots.length > 0) {
+                        dots[currentSlide].classList.remove('w-12', 'bg-brand-gold');
+                        dots[currentSlide].classList.add('w-6', 'bg-white/40');
+                    }
+
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    
+                    // Show New Slide
+                    slides[currentSlide].classList.remove('opacity-0', 'z-0');
+                    slides[currentSlide].classList.add('opacity-100', 'z-10');
+                    
+                    // Highlight New Dot
+                    if(dots.length > 0) {
+                        dots[currentSlide].classList.remove('w-6', 'bg-white/40');
+                        dots[currentSlide].classList.add('w-12', 'bg-brand-gold');
+                    }
+                }, 5000); 
+            }
+        });
+
+        // --- 3. FLOOR PLAN TAB SWITCHING LOGIC ---
+        function switchFloorPlan(tabId) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-brand-gold', 'text-brand-navy', 'font-bold');
+                btn.classList.add('border-transparent', 'text-gray-400', 'font-medium');
+            });
+            event.currentTarget.classList.add('border-brand-gold', 'text-brand-navy', 'font-bold');
+            event.currentTarget.classList.remove('border-transparent', 'text-gray-400', 'font-medium');
+
+            const contents = document.querySelectorAll('.floor-plan-content');
+            contents.forEach(content => {
+                content.classList.remove('opacity-100', 'z-10');
+                content.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+            });
+
+            const targetContent = document.getElementById(tabId);
+            targetContent.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+            targetContent.classList.add('opacity-100', 'z-10');
+        }
+
+        // --- 4. LIGHTBOX (MODAL) LOGIC ---
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = imageSrc;
+            
+            // Show modal container
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            
+            // Trigger animation
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            }, 10);
+
+            // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            // Prevent closing if clicking directly on the image itself, unless intended.
+            if(event && event.target.id === 'lightbox-img') return;
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            // Trigger exit animation
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+            
+            // Hide modal container after animation
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                lightboxImg.src = '';
+                // Restore background scrolling
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    </script>
+</body>
+</html>

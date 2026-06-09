@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Portfolio | Apex Constructions</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@300,0,0,24" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0A192F',
+                            gold: '#D4AF37',
+                            dark: '#111827',
+                            gray: '#F3F4F6',
+                            text: '#374151',
+                            light: '#FFFFFF'
+                        }
+                    },
+                    boxShadow: {
+                        'corporate': '0 20px 50px -20px rgba(0,0,0,0.12)',
+                        'corporate-hover': '0 30px 60px -20px rgba(0,0,0,0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #374151; background-color: #FAFAFA; overflow-x: hidden; opacity: 0; transition: opacity 0.8s ease-in-out; }
+        body.loaded { opacity: 1; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+
+        /* Project Card Hover Effects */
+        .project-card { transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .project-card:hover { transform: translateY(-8px); box-shadow: var(--tw-shadow-corporate-hover); }
+        .img-container { overflow: hidden; }
+        .project-img { transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .project-card:hover .project-img { transform: scale(1.05); }
+        
+        /* Filter Button Underline Animation */
+        .filter-btn { position: relative; padding-bottom: 4px; transition: color 0.3s ease; }
+        .filter-btn::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 0; background-color: #D4AF37; transition: width 0.3s ease;
+        }
+        .filter-btn:hover::after, .filter-btn.active::after { width: 100%; }
+        .filter-btn.active { color: #0A192F; font-weight: 600; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-white">
+
+    <header class="fixed top-0 w-full z-[100] bg-white shadow-md py-3 md:py-4 transition-all border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 md:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-3 md:gap-8">
+                <a href="index.html" class="flex items-center gap-1 md:gap-2 text-brand-navy hover:text-brand-gold transition-colors text-xs md:text-sm font-semibold tracking-wider uppercase group">
+                    <span class="material-symbols-outlined text-lg md:text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                    <span class="hidden sm:inline">Home</span>
+                </a>
+                <div class="h-6 w-px bg-gray-300"></div>
+                <div class="flex flex-col text-brand-navy">
+                    <span class="font-serif text-lg md:text-xl tracking-wide font-semibold leading-none">APEX</span>
+                    <span class="text-[8px] md:text-[9px] tracking-[0.2em] uppercase mt-1">Portfolio</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 md:gap-6">
+                <a href="#Contact" class="border border-brand-navy text-brand-navy px-3 md:px-6 py-2 text-[10px] md:text-xs font-semibold tracking-wider hover:bg-brand-navy hover:text-white transition-colors duration-300">
+                    CONTACT SALES
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-24 bg-brand-navy border-b-4 border-brand-gold overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-12 relative z-10 text-center">
+            <span class="text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase block mb-4 reveal-up">Established 1997</span>
+            <h1 class="font-serif text-4xl md:text-6xl text-white mb-6 reveal-up" style="transition-delay: 100ms;">Landmark Developments.</h1>
+            <p class="max-w-2xl mx-auto text-gray-300 font-light leading-relaxed text-sm md:text-base reveal-up" style="transition-delay: 200ms;">
+                Explore our curated portfolio of premium residential and commercial spaces. Every structure is a testament to our commitment to absolute engineering fidelity.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-white min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            
+            <div class="w-full overflow-hidden mb-12 md:mb-16">
+                <div class="flex flex-nowrap md:flex-wrap overflow-x-auto hide-scrollbar justify-start md:justify-center gap-6 md:gap-10 border-b border-gray-200 pb-3 px-2 md:px-0">
+                    <button class="filter-btn active text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterProjects('all', this)">All Projects</button>
+                    <button class="filter-btn text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterProjects('ongoing', this)">Ongoing</button>
+                    <button class="filter-btn text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterProjects('completed', this)">Completed</button>
+                    <button class="filter-btn text-xs md:text-sm tracking-widest uppercase text-gray-500 whitespace-nowrap" onclick="filterProjects('upcoming', this)">Upcoming</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="projects-grid">
+                
+                <div class="project-card bg-white border border-gray-100 shadow-corporate cursor-pointer group" data-category="ongoing" onclick="window.location.href='apex-happy-homes.html'">
+                    <div class="img-container relative h-64 md:h-72 w-full bg-brand-gray">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apex Happy Homes" class="project-img w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-brand-navy text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold z-10">
+                            Ongoing
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-2">Luxury Villas</p>
+                        <h3 class="font-serif text-2xl text-brand-navy mb-2">Apex Happy Homes</h3>
+                        <p class="text-sm text-gray-500 font-light mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span> Kurugunta, Anantapur
+                        </p>
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">
+                            Explore Project <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white border border-gray-100 shadow-corporate cursor-pointer group" data-category="completed">
+                    <div class="img-container relative h-64 md:h-72 w-full bg-brand-gray">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apex Residency" class="project-img w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-gray-800 text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold z-10">
+                            Completed
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-2">Premium Apartments</p>
+                        <h3 class="font-serif text-2xl text-brand-navy mb-2">Apex Residency</h3>
+                        <p class="text-sm text-gray-500 font-light mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span> Bellary Road, Anantapur
+                        </p>
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">
+                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white border border-gray-100 shadow-corporate cursor-pointer group" data-category="completed">
+                    <div class="img-container relative h-64 md:h-72 w-full bg-brand-gray">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apex Avenue" class="project-img w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-gray-800 text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold z-10">
+                            Completed
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-2">Gated Community</p>
+                        <h3 class="font-serif text-2xl text-brand-navy mb-2">Apex Avenue</h3>
+                        <p class="text-sm text-gray-500 font-light mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span> Ram Nagar, Anantapur
+                        </p>
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">
+                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white border border-gray-100 shadow-corporate cursor-pointer group" data-category="upcoming">
+                    <div class="img-container relative h-64 md:h-72 w-full bg-brand-gray">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apex Signature" class="project-img w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-brand-gold text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold z-10">
+                            Upcoming
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-2">Ultra Luxury Villas</p>
+                        <h3 class="font-serif text-2xl text-brand-navy mb-2">Apex Signature</h3>
+                        <p class="text-sm text-gray-500 font-light mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span> NH-44 Bypass, Anantapur
+                        </p>
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">
+                            Register Interest <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white border border-gray-100 shadow-corporate cursor-pointer group" data-category="ongoing">
+                    <div class="img-container relative h-64 md:h-72 w-full bg-brand-gray">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apex Heights" class="project-img w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-brand-navy text-white text-[10px] uppercase tracking-widest px-3 py-1 font-semibold z-10">
+                            Ongoing
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8">
+                        <p class="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-2">High-Rise Apartments</p>
+                        <h3 class="font-serif text-2xl text-brand-navy mb-2">Apex Heights</h3>
+                        <p class="text-sm text-gray-500 font-light mb-6 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span> JNTU Road, Anantapur
+                        </p>
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">
+                            Explore Project <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="no-results" class="hidden text-center py-20">
+                <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">home_work</span>
+                <h3 class="font-serif text-2xl text-brand-navy mb-2">No Projects Found</h3>
+                <p class="text-sm text-gray-500">There are currently no projects in this category.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="Contact" class="bg-brand-navy py-12 md:py-16 border-t-4 border-brand-gold px-4">
+        <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+            <div class="font-serif text-2xl md:text-3xl tracking-wide font-semibold text-white mb-2">APEX</div>
+            <p class="text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-brand-gold mb-8">Constructions</p>
+            
+            <p class="text-gray-300 font-light text-sm max-w-md mb-8">
+                Looking for your dream home or a prime investment? Contact our sales team today for exclusive previews and site visits.
+            </p>
+            
+            <a href="mailto:sales@apexconstructions.com" class="border border-brand-gold text-brand-gold px-8 py-3 text-xs tracking-widest uppercase font-semibold hover:bg-brand-gold hover:text-white transition-colors mb-12">
+                Contact Sales Team
+            </a>
+
+            <div class="w-full border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-500 tracking-wider uppercase font-light">
+                <p>© 2026 Apex Constructions & Infra Projects. All Rights Reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Page Load Fade-in
+            document.body.classList.add('loaded');
+
+            // Register GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero Header Animation
+            gsap.from(".reveal-up", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.2
+            });
+
+            // Initialize Grid Animations
+            initGridAnimations();
+        });
+
+        // Function to animate cards on scroll
+        function initGridAnimations() {
+            const cards = document.querySelectorAll('.project-card:not(.hidden)');
+            
+            // Clear existing ScrollTriggers to prevent layout bugs when filtering
+            ScrollTrigger.getAll().forEach(t => t.kill());
+
+            gsap.fromTo(cards, 
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, 
+                    opacity: 1, 
+                    duration: 0.8, 
+                    stagger: 0.1, 
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#projects-grid",
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        }
+
+        // --- Filtering Logic ---
+        function filterProjects(category, buttonElement) {
+            // Update active state on buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'text-brand-navy');
+                btn.classList.add('text-gray-500');
+            });
+            buttonElement.classList.add('active', 'text-brand-navy');
+            buttonElement.classList.remove('text-gray-500');
+
+            // Filter the cards
+            const cards = document.querySelectorAll('.project-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (category === 'all' || cardCategory === category) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Show/Hide Empty State
+            const noResults = document.getElementById('no-results');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                // Re-trigger animations for the newly visible cards
+                initGridAnimations();
+            }
+        }
+    </script>
+</body>
+</html>
